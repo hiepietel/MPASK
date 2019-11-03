@@ -13,28 +13,19 @@ class Program
 
     static string rgx = "\\w*\\s*OBJECT-TYPE\\s*SYNTAX.*?ACCESS.*?STATUS.*?DESCRIPTION\\s*\".*?\"\\s*::=\\s*{.*?}";
     static string rgxPro = "(?<name>\\w*)\\s*OBJECT-TYPE\\s*SYNTAX(?<syntax>.*?)ACCESS(?<access>.*?)STATUS(?<status>.*?)DESCRIPTION\\s*\"(?<description>.*?)\"\\s*::=\\s*{.*?}";
+    static string dataTypeRGX = "\\w*\\s*::=\\s*\\[\\s*\\w*\\s*(?<typeID>\\d+)\\s*\\]\\s*\\w+\\s+(?<parentType>\\w+\\s*\\w*)\\s* (?<restrictions>\\(?.*?\\)\\)?)";
+
 
     static string objectTypeRgx = "";
     static void Main()
     {
-        string input = "";
-        try
-        {   
-            using (StreamReader sr = new StreamReader("data/MIBshort.txt"))
-            {
-                input = sr.ReadToEnd();
-                //Console.WriteLine(line);
-            }
-        }
-        catch (IOException e)
-        {
-            Console.WriteLine("The file could not be read:");
-            Console.WriteLine(e.Message);
-        }
 
-        MatchCollection matches = Regex.Matches(input, rgxPro, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.CultureInvariant);
-        
-        List<Leaf> listOfLeafs = new List<Leaf>();
+        MatchCollection matchesData = Regex.Matches(TaskMethods.ReadFile("data/FC1155SMI.txt"), dataTypeRGX, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
+        MatchCollection matches = Regex.Matches(TaskMethods.ReadFile("data/MIB.txt"), rgxPro, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
+
+        List <Leaf> listOfLeafs = new List<Leaf>();
         
         
         foreach (Match match in matches)
