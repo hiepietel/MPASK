@@ -43,8 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\ACCESS.cs" />
+    <Compile Include="Enums\STATUS.cs" />
+    <Compile Include="Model\Leaf.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TaskMethods.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

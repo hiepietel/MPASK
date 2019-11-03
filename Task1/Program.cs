@@ -1,32 +1,10 @@
-﻿using System;
+﻿using Model.Task1;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
+using Task1;
 
-
-public enum SYNTAX
-{
-    
-}
-public enum ACCESS
-{
-    read_only, read_write, not_accessible,
-}
-public enum STATUS
-{
-    mandatory, deprecated
-}
-public class Leaf
-{
-    public int Id { get; set; }
-    public int ParentId { get; set; }
-
-    public string ObjectType { get; set; }
-    public string Description { get; set; }
-    public ACCESS Access { get; set; }
-    public STATUS Status { get; set; }
-
-
-}
 class Program
 {
     /// <summary>
@@ -36,7 +14,7 @@ class Program
     static string rgx = "\\w*\\s*OBJECT-TYPE\\s*SYNTAX.*?ACCESS.*?STATUS.*?DESCRIPTION\\s*\".*?\"\\s*::=\\s*{.*?}";
     static string rgxPro = "(?<name>\\w*)\\s*OBJECT-TYPE\\s*SYNTAX(?<syntax>.*?)ACCESS(?<access>.*?)STATUS(?<status>.*?)DESCRIPTION\\s*\"(?<description>.*?)\"\\s*::=\\s*{.*?}";
 
-static string objectTypeRgx = "";
+    static string objectTypeRgx = "";
     static void Main()
     {
         string input = "";
@@ -55,7 +33,10 @@ static string objectTypeRgx = "";
         }
 
         MatchCollection matches = Regex.Matches(input, rgxPro, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.CultureInvariant);
-
+        
+        List<Leaf> listOfLeafs = new List<Leaf>();
+        
+        
         foreach (Match match in matches)
         {
             string name = match.Groups[1].Value.Trim().Replace("\r", "").Replace("\n", "");
@@ -71,18 +52,28 @@ static string objectTypeRgx = "";
                 desc = desc.Replace("  ", " ");
 
             } while (desc.Contains("  "));
-            
-            
+
+
+
+            Leaf leaf = new Leaf()
             {
-                leafData = leafData.Replace("  ", " ");
-            }
+                ObjectType = name,
+                Status = TaskMethods.ToStatus(status),
+                Access = TaskMethods.ToAccess(access),
+                Description = desc
+                
+            };
+            listOfLeafs.Add(leaf);
+            //{
+            //    leafData = leafData.Replace("  ", " ");
+            //}
             
 
 
-            for (int i = 1; i < match.Groups.Count; i++)
-            {
-                Console.WriteLine(match.Groups[i].Value.Trim().Replace("\r", "").Replace("\n", ""));
-            }
+            //for (int i = 1; i < match.Groups.Count; i++)
+            //{
+            //    Console.WriteLine(match.Groups[i].Value.Trim().Replace("\r", "").Replace("\n", ""));
+            //}
 
             //{
 
