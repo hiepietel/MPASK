@@ -9,8 +9,10 @@ using Task1.Enums;
 namespace Task1
 {
     public static class TaskMethods
-    {
-        //public static string = "data/FC1155SMI.txt";
+    {   
+        public static string RemoveSpecialCharacter(this string str){
+            return str.Trim().Replace("\r", "").Replace("\n", "");
+        }
         public static string ReadFile(string source)
         {
             string toReturn = "";
@@ -64,6 +66,28 @@ namespace Task1
                     return ACCESS.not_accessible;
                 default:
                     return ACCESS.unknown;
+            }
+        }
+        public static KEYWORD ToKeyword(string str)
+        {
+            switch (str)
+            {
+                case "IMPLICIT"
+                    return KEYWORD.IMPLICIT;
+                case "EXPLICIT":
+                    return KEYWORD.EXPLICIT;
+                default:
+                    return KEYWORD.UNKNOWN;
+            }
+        }
+        public static VISIBILITY ToVisibility(string str)
+        {
+            switch (str)
+            {
+                case "APPLICATION":
+                    return VISIBILITY.APPLICATION;
+                default:
+                    return VISIBILITY.UNKNOWN;
             }
         }
     }
