@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace Task1.Enums
 {
-    public enum KEYWORD
+    public enum DATATYPE
     {
-        UNKNOWN, IMPLICIT, EXPLICIT
+        UNKNOWN,
+        OCTET_STRING,
+        INTEGER,
+
     }
 }

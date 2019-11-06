@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using Task1;
+using Task1.Model;
 
 class Program
 {
@@ -14,14 +15,40 @@ class Program
     static string rgx = "\\w*\\s*OBJECT-TYPE\\s*SYNTAX.*?ACCESS.*?STATUS.*?DESCRIPTION\\s*\".*?\"\\s*::=\\s*{.*?}";
     static string rgxPro = "(?<name>\\w*)\\s*OBJECT-TYPE\\s*SYNTAX(?<syntax>.*?)ACCESS(?<access>.*?)STATUS(?<status>.*?)DESCRIPTION\\s*\"(?<description>.*?)\"\\s*::=\\s*{.*?}";
     static string dataTypeRGX = "\\w*\\s*::=\\s*\\[\\s*\\w*\\s*(?<typeID>\\d+)\\s*\\]\\s*\\w+\\s+(?<parentType>\\w+\\s*\\w*)\\s* (?<restrictions>\\(?.*?\\)\\)?)";
-
-
+    // static string dataTypeRGXwithName = (?< NAME >\w*\s*)::=\s*\[\s*\w*\s*(?<typeID>\d+)\s*\]\s*\w+\s+(?<parentType>\w+\s*\w*)\s* (?<restrictions>\(?.*?\)\)?)
+    //static string dataTypeRGXverOne = "(?<TypeName>\\w*\\s*)::=\\s*\\[\\s*\\w*\\s*(?<typeID>\\d+)\\s*\\]\\s* (?<typeTYPE>\\w+)\\s+(?<parentType>\\w+\\s*\\w*)\\s* (?<restrictions>\\(?.*?\\)\\)?)";
+    static string dataTypeRGXverOne = "(?<TypeName>\\w*\\s*)::=\\s*\\[(?<APP>\\s*\\w*\\s*)(?<typeID>\\d+)\\s*\\]\\s*(?<typeTYPE>\\w+)\\s+(?<parentType>\\w+\\s*\\w*)\\s*(?<restrictions>\\(?.*?\\)\\)?)";
     static string objectTypeRgx = "";
+
     static void Main()
     {
 
-        MatchCollection matchesData = Regex.Matches(TaskMethods.ReadFile("data/FC1155SMI.txt"), dataTypeRGX, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.CultureInvariant);
+        MatchCollection matchesData = Regex.Matches(TaskMethods.ReadFile("data/FC1155SMI.txt"), dataTypeRGXverOne, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.CultureInvariant);
+        var dataTypes = new List<DataType>();
+        foreach (Match match in matchesData)
+        {
+            string name = match.Groups[1].Value.RemoveSpecialCharacter();
+            string type = match.Groups[2].Value.RemoveSpecialCharacter();
+            string typeId = match.Groups[3].Value.RemoveSpecialCharacter();
+            string visibility = match.Groups[4].Value.RemoveSpecialCharacter();
+            string datatype = match.Groups[5].Value.RemoveSpecialCharacter();
+            string size = match.Groups[6].Value.RemoveSpecialCharacter();
 
+            var dataType = new DataType()
+            {
+                Id = 0,
+                Name = name,
+                Type = TaskMethods.ToType(type),
+                TypeIndex = int.Parse(typeId),
+                Visibility = TaskMethods.ToVisibility(visibility),
+                Datatype = TaskMethods.ToDatatype(datatype),
+                Size = size
+                //Visibility = TaskMethods.ToVisibility(typeName),
+                //Keyword = TaskMethods.ToKeyword(visibility)
+            };
+            dataTypes.Add(dataType);
+
+        }
         MatchCollection matches = Regex.Matches(TaskMethods.ReadFile("data/MIB.txt"), rgxPro, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
 
@@ -30,14 +57,13 @@ class Program
         
         foreach (Match match in matches)
         {
-            string name = match.Groups[1].Value.Trim().Replace("\r", "").Replace("\n", "");
+            string name = match.Groups[1].Value.RemoveSpecialCharacter();
+            string syntax = match.Groups[2].Value.RemoveSpecialCharacter();
+            string access = match.Groups[3].Value.RemoveSpecialCharacter();
+            string status = match.Groups[4].Value.RemoveSpecialCharacter();
 
-            string syntax = match.Groups[2].Value.Trim().Replace("\r", "").Replace("\n", "");
-            string access = match.Groups[3].Value.Trim().Replace("\r", "").Replace("\n", "");
-            string status = match.Groups[4].Value.Trim().Replace("\r", "").Replace("\n", "");
-            
             //Descirption
-            string desc = match.Groups[5].Value.Trim().Replace("\r", "").Replace("\n", "");
+            string desc = match.Groups[5].Value.RemoveSpecialCharacter();
             do
             {
                 desc = desc.Replace("  ", " ");

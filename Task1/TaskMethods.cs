@@ -10,6 +10,10 @@ namespace Task1
 {
     public static class TaskMethods
     {
+        public static string RemoveSpecialCharacter(this string str)
+        {
+            return str.Trim().Replace("\r", "").Replace("\n", "");
+        }
         //public static string = "data/FC1155SMI.txt";
         public static string ReadFile(string source)
         {
@@ -64,6 +68,40 @@ namespace Task1
                     return ACCESS.not_accessible;
                 default:
                     return ACCESS.unknown;
+            }
+        }
+        public static VISIBILITY ToVisibility(string str)
+        {
+            switch (str)
+            {
+                case "IMPLICIT":
+                    return VISIBILITY.IMPLICIT;
+                case "EXPLICIT":
+                    return VISIBILITY.EXPLICIT;
+                default:
+                    return VISIBILITY.UNKNOWN;
+            }
+        }
+        public static TYPE ToType(string str)
+        {
+            switch (str)
+            {
+                case "APPLICATION":
+                    return TYPE.APPLICATION;
+                default:
+                    return TYPE.UNKNOWN;
+            }
+        }
+        public static DATATYPE ToDatatype(string str)
+        {
+            switch (str)
+            {
+                case "APPLICATION":
+                    return DATATYPE.OCTET_STRING;
+                case "INTEGER":
+                    return DATATYPE.INTEGER;
+                default:
+                    return DATATYPE.UNKNOWN;
             }
         }
     }

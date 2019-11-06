@@ -44,9 +44,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums\ACCESS.cs" />
-    <Compile Include="Enums\KEYWORD.cs" />
-    <Compile Include="Enums\STATUS.cs" />
+    <Compile Include="Enums\DATATYPE.cs" />
     <Compile Include="Enums\VISIBILITY.cs" />
+    <Compile Include="Enums\STATUS.cs" />
+    <Compile Include="Enums\TYPE.cs" />
     <Compile Include="Model\DataType.cs" />
     <Compile Include="Model\Leaf.cs" />
     <Compile Include="Program.cs" />

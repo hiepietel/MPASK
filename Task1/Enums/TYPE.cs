@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Task1.Enums
 {
-    public enum VISIBILITY
+    public enum TYPE
     {
-        UNKNOWN, IMPLICIT, EXPLICIT
+        UNKNOWN, UNIVERSAL, APPLICATION, CONTEXT_SPECIFIC, PRIVATE
     }
 }
