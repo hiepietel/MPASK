@@ -48,8 +48,10 @@
     <Compile Include="Enums\VISIBILITY.cs" />
     <Compile Include="Enums\STATUS.cs" />
     <Compile Include="Enums\TYPE.cs" />
+    <Compile Include="Method\RegexString.cs" />
     <Compile Include="Model\DataType.cs" />
     <Compile Include="Model\Leaf.cs" />
+    <Compile Include="Model\LeafData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TaskMethods.cs" />

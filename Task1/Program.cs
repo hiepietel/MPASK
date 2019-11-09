@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using Task1;
+using Task1.Method;
 using Task1.Model;
 
 class Program
@@ -19,9 +20,55 @@ class Program
     //static string dataTypeRGXverOne = "(?<TypeName>\\w*\\s*)::=\\s*\\[\\s*\\w*\\s*(?<typeID>\\d+)\\s*\\]\\s* (?<typeTYPE>\\w+)\\s+(?<parentType>\\w+\\s*\\w*)\\s* (?<restrictions>\\(?.*?\\)\\)?)";
     static string dataTypeRGXverOne = "(?<TypeName>\\w*\\s*)::=\\s*\\[(?<APP>\\s*\\w*\\s*)(?<typeID>\\d+)\\s*\\]\\s*(?<typeTYPE>\\w+)\\s+(?<parentType>\\w+\\s*\\w*)\\s*(?<restrictions>\\(?.*?\\)\\)?)";
     static string objectTypeRgx = "";
+    static List<Leaf> leafs = new List<Leaf>();
 
     static void Main()
     {
+        InitTree();
+        MatchCollection leafsRGX = Regex.Matches(TaskMethods.ReadFile("data/FC1155SMI.txt"), RegexString.DataRGX, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
+
+        foreach (Match match in leafsRGX) {
+            string name = match.Groups[1].Value.RemoveSpecialCharacter();
+            string[] positions = match.Groups[2].Value.RemoveSpecialCharacter().Split(' '); ;
+
+            string parentName = positions[0];
+            Leaf parentLeaf = leafs.Find(x => x.Name == parentName);
+            for (int i = 0; i < positions.Length - 1; i++)
+            {
+                parentLeaf = leafs.Find(x => x.Name == parentName);
+
+            }
+            string newNode = positions[positions.Length - 1];
+            Leaf newLeaf = new Leaf()
+            {
+                Id = 0,
+                Name = name,
+                Index = Int32.Parse(positions[positions.Length - 1]),
+                ParentName = parentLeaf.Name
+                
+            };
+             
+                                  
+            foreach(string item in positions)
+            {
+                if(item.Contains("(") && item.Contains(")"))
+                {
+
+                }
+                else
+                {
+                    var leaf = new Leaf()
+                    {
+                        Id = 0,
+                        Name = name
+                    };                 
+                }
+            }
+            
+
+        }
+
 
         MatchCollection matchesData = Regex.Matches(TaskMethods.ReadFile("data/FC1155SMI.txt"), dataTypeRGXverOne, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.CultureInvariant);
         var dataTypes = new List<DataType>();
@@ -52,7 +99,7 @@ class Program
         MatchCollection matches = Regex.Matches(TaskMethods.ReadFile("data/MIB.txt"), rgxPro, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
 
-        List <Leaf> listOfLeafs = new List<Leaf>();
+        List <LeafData> listOfLeafs = new List<LeafData>();
         
         
         foreach (Match match in matches)
@@ -70,9 +117,7 @@ class Program
 
             } while (desc.Contains("  "));
 
-
-
-            Leaf leaf = new Leaf()
+            LeafData leaf = new LeafData()
             {
                 ObjectType = name,
                 Status = TaskMethods.ToStatus(status),
@@ -81,36 +126,39 @@ class Program
                 
             };
             listOfLeafs.Add(leaf);
-            //{
-            //    leafData = leafData.Replace("  ", " ");
-            //}
-            
-
-
-            //for (int i = 1; i < match.Groups.Count; i++)
-            //{
-            //    Console.WriteLine(match.Groups[i].Value.Trim().Replace("\r", "").Replace("\n", ""));
-            //}
-
-            //{
-
-            //}
-
-            //string leafData = match.Value.Trim().Replace("\r", "").Replace("\n", "");
-            //while(leafData.Contains("  "))
-            //{
-            //    leafData = leafData.Replace("  ", " ");
-            //}
-            //int objectEnd = leafData.IndexOf("OBJECT-TYPE");
-            //string objecttype = leafData.Substring(0, leafData.IndexOf("OBJECT-TYPE")).Trim();
-            //leafData = leafData.Remove(0, leafData.IndexOf("SYNTAX");
-            //int syntaxPos = leafData.IndexOf("SYNTAX".Length + "SYNTAX".Length;
-            //string syntax = leafData.Substring(syntaxPos, leafData.IndexOf("STATUS")-syntaxPos);
 
 
 
         }
 
         Console.ReadKey();
+    }
+    static void InitTree()
+    {
+        Leaf RootNode = new Leaf()
+        {
+            Id = 0,
+            Name = "Root-Node",
+            ParentName = "null",
+            Index = 0
+        };
+        leafs.Add(RootNode);
+        Leaf ccitt = new Leaf()
+        {
+            Id = 1,
+            Name = "ccitt",
+            ParentName = "Root-Node",
+            Index = 0
+        };
+        leafs.Add(ccitt);
+        Leaf iso = new Leaf()
+        {
+            Id = 2,
+            Name = "iso",
+            ParentName = "Root-Node",
+            Index = 1
+        };
+        leafs.Add(iso);
+
     }
 }

@@ -3,19 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Task1.Enums;
 
-namespace Model.Task1
+namespace Task1.Model
 {
     public class Leaf
     {
         public int Id { get; set; }
-        public int ParentId { get; set; }
-
-        public string ObjectType { get; set; }
-        public string Description { get; set; }
-        public ACCESS Access { get; set; }
-        public STATUS Status { get; set; }
-
+        public string Name { get; set; }
+        public string ParentName { get; set; }
+        public int Index { get; set; }
     }
 }
