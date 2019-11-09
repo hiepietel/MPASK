@@ -25,6 +25,8 @@ class Program
     static void Main()
     {
         InitTree();
+
+
         MatchCollection leafsRGX = Regex.Matches(TaskMethods.ReadFile("data/FC1155SMI.txt"), RegexString.DataRGX, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
 
@@ -33,10 +35,29 @@ class Program
             string[] positions = match.Groups[2].Value.RemoveSpecialCharacter().Split(' '); ;
 
             string parentName = positions[0];
-            Leaf parentLeaf = leafs.Find(x => x.Name == parentName);
-            for (int i = 0; i < positions.Length - 1; i++)
+            string parentLeaf = leafs.Find(x => x.Name == parentName).Name;
+            for (int i = 1; i < positions.Length - 1; i++)
             {
-                parentLeaf = leafs.Find(x => x.Name == parentName);
+                parentLeaf = leafs.Find(x => x.Name == parentName).Name;
+                string[] data = positions[i].Split('(');
+                string nameLeaf = "";
+                int indexLeaf = 0;
+                if(data.Length > 1)
+                {
+                    nameLeaf = data[0];
+
+                    indexLeaf = Int32.Parse(data[1].Remove(data[1].IndexOf(')')));
+                    Leaf newLeaf2 = new Leaf()
+                    {
+                        Id = 0,
+                        Name = nameLeaf,
+                        Index = indexLeaf,
+                        ParentName = parentLeaf
+                    };
+                    parentLeaf = nameLeaf;
+                    leafs.Add(newLeaf2);
+                }
+                
 
             }
             string newNode = positions[positions.Length - 1];
@@ -45,9 +66,10 @@ class Program
                 Id = 0,
                 Name = name,
                 Index = Int32.Parse(positions[positions.Length - 1]),
-                ParentName = parentLeaf.Name
+                ParentName = parentLeaf
                 
             };
+            leafs.Add(newLeaf);
              
                                   
             foreach(string item in positions)
