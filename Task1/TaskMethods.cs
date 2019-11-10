@@ -3,16 +3,40 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Task1.Enums;
+using Task1.Method;
 
 namespace Task1
 {
     public static class TaskMethods
     {
+        public static MatchCollection CollectionRegex(string source, string regex, bool readFromFile = true)
+        {
+            source = readFromFile ? ReadFile(source) : source;
+            MatchCollection returnCollection = Regex.Matches(source, regex, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.CultureInvariant);
+            return returnCollection;
+        }
+        public static Match MatchRegex(string source, string regex, bool readFromFile=true)
+        {
+            source = readFromFile ? ReadFile(source) : source;
+            Match returnMatch = Regex.Match(source, regex, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.CultureInvariant);
+            return returnMatch;
+        }
         public static string RemoveSpecialCharacter(this string str)
         {
             return str.Trim().Replace("\r", "").Replace("\n", "");
+        }
+        public static string RemoveSpaces(this string str)
+        {
+            do
+            {
+                str = str.Replace("  ", " ");
+
+            } while (str.Contains("  "));
+            return str;
+
         }
         //public static string = "data/FC1155SMI.txt";
         public static string ReadFile(string source)
@@ -42,67 +66,6 @@ namespace Task1
 
             return toReturn;
         }
-        public static STATUS ToStatus(string str)
-        {
-            switch (str)
-            {
-                case "current":
-                    return STATUS.current;
-                case "mandatory":
-                    return STATUS.mandatory;
-                case "deprecated":
-                    return STATUS.deprecated;
-                default:
-                    return STATUS.unknown;
-            }
-        }
-        public static ACCESS ToAccess(string str)
-        {
-            switch (str)
-            {
-                case "read-only":
-                    return ACCESS.read_only;
-                case "read_write":
-                    return ACCESS.read_write;
-                case "not-accessible":
-                    return ACCESS.not_accessible;
-                default:
-                    return ACCESS.unknown;
-            }
-        }
-        public static VISIBILITY ToVisibility(string str)
-        {
-            switch (str)
-            {
-                case "IMPLICIT":
-                    return VISIBILITY.IMPLICIT;
-                case "EXPLICIT":
-                    return VISIBILITY.EXPLICIT;
-                default:
-                    return VISIBILITY.UNKNOWN;
-            }
-        }
-        public static TYPE ToType(string str)
-        {
-            switch (str)
-            {
-                case "APPLICATION":
-                    return TYPE.APPLICATION;
-                default:
-                    return TYPE.UNKNOWN;
-            }
-        }
-        public static DATATYPE ToDatatype(string str)
-        {
-            switch (str)
-            {
-                case "APPLICATION":
-                    return DATATYPE.OCTET_STRING;
-                case "INTEGER":
-                    return DATATYPE.INTEGER;
-                default:
-                    return DATATYPE.UNKNOWN;
-            }
-        }
+        
     }
 }

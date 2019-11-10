@@ -9,178 +9,41 @@ using Task1.Model;
 
 class Program
 {
-    /// <summary>
-    /// \w*\s*OBJECT-TYPE\s*SYNTAX.*\s*ACCESS.*\s*STATUS.*\s*DESCRIPTION\s*.* - dziala do desc
-    /// </summary>
-
-    static string rgx = "\\w*\\s*OBJECT-TYPE\\s*SYNTAX.*?ACCESS.*?STATUS.*?DESCRIPTION\\s*\".*?\"\\s*::=\\s*{.*?}";
-    static string rgxPro = "(?<name>\\w*)\\s*OBJECT-TYPE\\s*SYNTAX(?<syntax>.*?)ACCESS(?<access>.*?)STATUS(?<status>.*?)DESCRIPTION\\s*\"(?<description>.*?)\"\\s*::=\\s*{.*?}";
-    static string dataTypeRGX = "\\w*\\s*::=\\s*\\[\\s*\\w*\\s*(?<typeID>\\d+)\\s*\\]\\s*\\w+\\s+(?<parentType>\\w+\\s*\\w*)\\s* (?<restrictions>\\(?.*?\\)\\)?)";
-    // static string dataTypeRGXwithName = (?< NAME >\w*\s*)::=\s*\[\s*\w*\s*(?<typeID>\d+)\s*\]\s*\w+\s+(?<parentType>\w+\s*\w*)\s* (?<restrictions>\(?.*?\)\)?)
-    //static string dataTypeRGXverOne = "(?<TypeName>\\w*\\s*)::=\\s*\\[\\s*\\w*\\s*(?<typeID>\\d+)\\s*\\]\\s* (?<typeTYPE>\\w+)\\s+(?<parentType>\\w+\\s*\\w*)\\s* (?<restrictions>\\(?.*?\\)\\)?)";
-    static string dataTypeRGXverOne = "(?<TypeName>\\w*\\s*)::=\\s*\\[(?<APP>\\s*\\w*\\s*)(?<typeID>\\d+)\\s*\\]\\s*(?<typeTYPE>\\w+)\\s+(?<parentType>\\w+\\s*\\w*)\\s*(?<restrictions>\\(?.*?\\)\\)?)";
-    static string objectTypeRgx = "";
-    static List<Leaf> leafs = new List<Leaf>();
-
     static void Main()
     {
-        InitTree();
+        //initData
+        string mainFilePath = "RFC1213";
+        List<Leaf> leafs = new List<Leaf>();
+        List<DataType> dataTypes = new List<DataType>();
+        List<LeafData> leafDatas = new List<LeafData>();
 
-
-        MatchCollection leafsRGX = Regex.Matches(TaskMethods.ReadFile("data/FC1155SMI.txt"), RegexString.DataRGX, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.CultureInvariant);
-
-
-        foreach (Match match in leafsRGX) {
-            string name = match.Groups[1].Value.RemoveSpecialCharacter();
-            string[] positions = match.Groups[2].Value.RemoveSpecialCharacter().Split(' '); ;
-
-            string parentName = positions[0];
-            string parentLeaf = leafs.Find(x => x.Name == parentName).Name;
-            for (int i = 1; i < positions.Length - 1; i++)
-            {
-                parentLeaf = leafs.Find(x => x.Name == parentName).Name;
-                string[] data = positions[i].Split('(');
-                string nameLeaf = "";
-                int indexLeaf = 0;
-                if(data.Length > 1)
-                {
-                    nameLeaf = data[0];
-
-                    indexLeaf = Int32.Parse(data[1].Remove(data[1].IndexOf(')')));
-                    Leaf newLeaf2 = new Leaf()
-                    {
-                        Id = 0,
-                        Name = nameLeaf,
-                        Index = indexLeaf,
-                        ParentName = parentLeaf
-                    };
-                    parentLeaf = nameLeaf;
-                    leafs.Add(newLeaf2);
-                }
-                
-
-            }
-            string newNode = positions[positions.Length - 1];
-            Leaf newLeaf = new Leaf()
-            {
-                Id = 0,
-                Name = name,
-                Index = Int32.Parse(positions[positions.Length - 1]),
-                ParentName = parentLeaf
-                
-            };
-            leafs.Add(newLeaf);
-             
-                                  
-            foreach(string item in positions)
-            {
-                if(item.Contains("(") && item.Contains(")"))
-                {
-
-                }
-                else
-                {
-                    var leaf = new Leaf()
-                    {
-                        Id = 0,
-                        Name = name
-                    };                 
-                }
-            }
-            
-
-        }
-
-
-        MatchCollection matchesData = Regex.Matches(TaskMethods.ReadFile("data/FC1155SMI.txt"), dataTypeRGXverOne, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.CultureInvariant);
-        var dataTypes = new List<DataType>();
-        foreach (Match match in matchesData)
+        //InitTree();
+        Match imports = TaskMethods.MatchRegex("data/" + mainFilePath.ReturnFilePath(), RegexString.ImportsRGX);
+        string toImport = imports.Value.Replace("IMPORTS", "").RemoveSpecialCharacter().RemoveSpaces();
+        MatchCollection importData = TaskMethods.CollectionRegex(toImport, RegexString.ImportSortedRGX, false);
+        foreach (Match itemm in importData)
         {
-            string name = match.Groups[1].Value.RemoveSpecialCharacter();
-            string type = match.Groups[2].Value.RemoveSpecialCharacter();
-            string typeId = match.Groups[3].Value.RemoveSpecialCharacter();
-            string visibility = match.Groups[4].Value.RemoveSpecialCharacter();
-            string datatype = match.Groups[5].Value.RemoveSpecialCharacter();
-            string size = match.Groups[6].Value.RemoveSpecialCharacter();
-
-            var dataType = new DataType()
-            {
-                Id = 0,
-                Name = name,
-                Type = TaskMethods.ToType(type),
-                TypeIndex = int.Parse(typeId),
-                Visibility = TaskMethods.ToVisibility(visibility),
-                Datatype = TaskMethods.ToDatatype(datatype),
-                Size = size
-                //Visibility = TaskMethods.ToVisibility(typeName),
-                //Keyword = TaskMethods.ToKeyword(visibility)
-            };
-            dataTypes.Add(dataType);
-
-        }
-        MatchCollection matches = Regex.Matches(TaskMethods.ReadFile("data/MIB.txt"), rgxPro, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.CultureInvariant);
-
-
-        List <LeafData> listOfLeafs = new List<LeafData>();
-        
-        
-        foreach (Match match in matches)
-        {
-            string name = match.Groups[1].Value.RemoveSpecialCharacter();
-            string syntax = match.Groups[2].Value.RemoveSpecialCharacter();
-            string access = match.Groups[3].Value.RemoveSpecialCharacter();
-            string status = match.Groups[4].Value.RemoveSpecialCharacter();
-
-            //Descirption
-            string desc = match.Groups[5].Value.RemoveSpecialCharacter();
-            do
-            {
-                desc = desc.Replace("  ", " ");
-
-            } while (desc.Contains("  "));
-
-            LeafData leaf = new LeafData()
-            {
-                ObjectType = name,
-                Status = TaskMethods.ToStatus(status),
-                Access = TaskMethods.ToAccess(access),
-                Description = desc
-                
-            };
-            listOfLeafs.Add(leaf);
-
-
-
+            //List<string> datatypesToImport= itemm.Groups[1].Value.RemoveSpecialCharacter().Split(',').T;
+            string[] items = itemm.Groups[1].Value.RemoveSpecialCharacter().Split(',');
+            string from = itemm.Groups[2].Value.RemoveSpecialCharacter();
         }
 
+        //MatchCollection leafsRGX = Regex.Matches(TaskMethods.ReadFile("data/FC1155SMI.txt"), RegexString.DataRGX, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.CultureInvariant);
+        MatchCollection leafsRGX = TaskMethods.CollectionRegex("data/"+mainFilePath.ReturnFilePath(), RegexString.DataRGX);
+        leafs = LeafParser.DoTree(leafsRGX);
+
+
+        //MatchCollection matchesData = Regex.Matches(TaskMethods.ReadFile("data/FC1155SMI.txt"), dataTypeRGXverOne, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.CultureInvariant);
+        MatchCollection matchesData = TaskMethods.CollectionRegex("data/" + mainFilePath.ReturnFilePath(), RegexString.DataTypeRGX);
+        dataTypes = DataTypeParser.DoTree(matchesData);
+
+
+        //MatchCollection matches = Regex.Matches(TaskMethods.ReadFile("data/MIB.txt"), rgxPro, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.CultureInvariant);
+        MatchCollection matches = TaskMethods.CollectionRegex("data/" + mainFilePath.ReturnFilePath(), RegexString.DataRGX);
+        leafDatas = LeafDataParser.DoTree(matches);
+
+        //List <LeafData> listOfLeafs = new List<LeafData>();
         Console.ReadKey();
     }
-    static void InitTree()
-    {
-        Leaf RootNode = new Leaf()
-        {
-            Id = 0,
-            Name = "Root-Node",
-            ParentName = "null",
-            Index = 0
-        };
-        leafs.Add(RootNode);
-        Leaf ccitt = new Leaf()
-        {
-            Id = 1,
-            Name = "ccitt",
-            ParentName = "Root-Node",
-            Index = 0
-        };
-        leafs.Add(ccitt);
-        Leaf iso = new Leaf()
-        {
-            Id = 2,
-            Name = "iso",
-            ParentName = "Root-Node",
-            Index = 1
-        };
-        leafs.Add(iso);
 
-    }
 }
