@@ -9,15 +9,11 @@ using Task1.Model;
 
 class Program
 {
-    static void Main()
-    {
-        //initData
-        string mainFilePath = "RFC1213";
-        List<Leaf> leafs = new List<Leaf>();
-        List<DataType> dataTypes = new List<DataType>();
-        List<LeafData> leafDatas = new List<LeafData>();
+    static List<Leaf> leafs = new List<Leaf>();
+    static List<string> importedFiles = new List<string>();
 
-        //InitTree();
+    static void Import(string mainFilePath)
+    {
         Match imports = TaskMethods.MatchRegex("data/" + mainFilePath.ReturnFilePath(), RegexString.ImportsRGX);
         string toImport = imports.Value.Replace("IMPORTS", "").RemoveSpecialCharacter().RemoveSpaces();
         MatchCollection importData = TaskMethods.CollectionRegex(toImport, RegexString.ImportSortedRGX, false);
@@ -26,23 +22,44 @@ class Program
             //List<string> datatypesToImport= itemm.Groups[1].Value.RemoveSpecialCharacter().Split(',').T;
             string[] items = itemm.Groups[1].Value.RemoveSpecialCharacter().Split(',');
             string from = itemm.Groups[2].Value.RemoveSpecialCharacter();
+            
+            
+            if (!importedFiles.Contains(from))
+            {
+                importedFiles.Add(from);
+                leafs = LeafParser.ReturnTree(from, leafs);
+                Import(from);
+            }
+            
         }
+    }
+    static void Main()
+    {
+        ////initData
+        string mainFilePath = "RFC1213";
+        //leafs = LeafParser.InitTree();
+        ////ImportFromFiles
+        //Import(mainFilePath);
+        ////Add main file 
+        //importedFiles.Add(mainFilePath);
+        //leafs = LeafParser.ReturnTree(mainFilePath, leafs);
 
-        //MatchCollection leafsRGX = Regex.Matches(TaskMethods.ReadFile("data/FC1155SMI.txt"), RegexString.DataRGX, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.CultureInvariant);
-        MatchCollection leafsRGX = TaskMethods.CollectionRegex("data/"+mainFilePath.ReturnFilePath(), RegexString.DataRGX);
-        leafs = LeafParser.DoTree(leafsRGX);
 
 
         //MatchCollection matchesData = Regex.Matches(TaskMethods.ReadFile("data/FC1155SMI.txt"), dataTypeRGXverOne, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.CultureInvariant);
         MatchCollection matchesData = TaskMethods.CollectionRegex("data/" + mainFilePath.ReturnFilePath(), RegexString.DataTypeRGX);
-        dataTypes = DataTypeParser.DoTree(matchesData);
+        var dataTypes = DataTypeParser.DoTree(matchesData);
 
 
         //MatchCollection matches = Regex.Matches(TaskMethods.ReadFile("data/MIB.txt"), rgxPro, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.CultureInvariant);
-        MatchCollection matches = TaskMethods.CollectionRegex("data/" + mainFilePath.ReturnFilePath(), RegexString.DataRGX);
-        leafDatas = LeafDataParser.DoTree(matches);
+        MatchCollection matches = TaskMethods.CollectionRegex("data/" + mainFilePath.ReturnFilePath(), RegexString.LeafDataRGX);
+        var leafDatas = LeafDataParser.DoTree(matches);
 
         //List <LeafData> listOfLeafs = new List<LeafData>();
+        foreach (var item in leafs)
+        {
+            Console.WriteLine(item.OID + " " +item.Name);
+        }
         Console.ReadKey();
     }
 

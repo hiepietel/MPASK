@@ -10,9 +10,14 @@ namespace Task1.Method
 {
     public static class LeafParser
     {
-        public static List<Leaf> DoTree(MatchCollection collection)
+        public static List<Leaf> ReturnTree(string filepath, List<Leaf> leafs)
         {
-            var leafs = InitTree();
+            MatchCollection leafsRGX = TaskMethods.CollectionRegex("data/" + filepath.ReturnFilePath(), RegexString.LeafRGX);
+            List<Leaf> list = DoTree(leafsRGX, leafs);
+            return list;
+        }
+        public static List<Leaf> DoTree(MatchCollection collection, List<Leaf> leafs)
+        {
             foreach (Match match in collection)
             {
                 string name = match.Groups[1].Value.RemoveSpecialCharacter();
@@ -20,6 +25,8 @@ namespace Task1.Method
 
                 string parentName = positions[0];
                 string parentLeaf = leafs.Find(x => x.Name == parentName).Name;
+                string parentOID = leafs.Find(x => x.Name == parentName).OID;
+
                 for (int i = 1; i < positions.Length - 1; i++)
                 {
                     parentLeaf = leafs.Find(x => x.Name == parentName).Name;
@@ -29,14 +36,18 @@ namespace Task1.Method
                     if (data.Length > 1)
                     {
                         nameLeaf = data[0];
-
+                        
                         indexLeaf = Int32.Parse(data[1].Remove(data[1].IndexOf(')')));
+                        parentOID = parentOID + "." + indexLeaf.ToString();
+                        
                         Leaf newLeaf2 = new Leaf()
                         {
                             Id = 0,
                             Name = nameLeaf,
                             Index = indexLeaf,
-                            ParentName = parentLeaf
+                            ParentName = parentLeaf,
+                            OID = parentOID
+
                         };
                         parentLeaf = nameLeaf;
                         leafs.Add(newLeaf2);
@@ -44,13 +55,14 @@ namespace Task1.Method
 
 
                 }
-                string newNode = positions[positions.Length - 1];
+                
                 Leaf newLeaf = new Leaf()
                 {
                     Id = 0,
                     Name = name,
                     Index = Int32.Parse(positions[positions.Length - 1]),
-                    ParentName = parentLeaf
+                    ParentName = parentLeaf,
+                    OID = parentOID + "." + positions[positions.Length - 1]
 
                 };
                 leafs.Add(newLeaf);
@@ -65,7 +77,8 @@ namespace Task1.Method
                 Id = 0,
                 Name = "Root-Node",
                 ParentName = "null",
-                Index = 0
+                Index = 0,
+                OID="0"
             };
             listOfLeafs.Add(RootNode);
             Leaf ccitt = new Leaf()
@@ -73,7 +86,8 @@ namespace Task1.Method
                 Id = 1,
                 Name = "ccitt",
                 ParentName = "Root-Node",
-                Index = 0
+                Index = 0,
+                OID= "1"
             };
             listOfLeafs.Add(ccitt);
             Leaf iso = new Leaf()
@@ -81,9 +95,19 @@ namespace Task1.Method
                 Id = 2,
                 Name = "iso",
                 ParentName = "Root-Node",
-                Index = 1
+                Index = 1,
+                OID = "1"
             };
             listOfLeafs.Add(iso);
+            Leaf joint = new Leaf()
+            {
+                Id = 3,
+                Name = "joint",
+                ParentName = "Root-Node",
+                Index = 2,
+                OID = "2"
+            };
+            listOfLeafs.Add(joint);
             return listOfLeafs;
         }
     }

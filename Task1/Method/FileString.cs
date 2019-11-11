@@ -18,7 +18,7 @@ namespace Task1.Method
                     return "RFC1212-MIB.txt";
                 case "RFC1213":
                     return "RFC1213-MIB.txt";
-                case "RFC1158":
+                case "RFC1158-MIB":
                     return "RFC1158-MIB.txt";
                 default:
                     return "";
