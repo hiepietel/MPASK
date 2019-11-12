@@ -13,5 +13,6 @@ namespace Task1.Model
         public string ParentName { get; set; }
         public int Index { get; set; }
         public string OID { get; set; }
+
     }
 }

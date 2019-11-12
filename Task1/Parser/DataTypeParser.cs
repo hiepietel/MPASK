@@ -13,7 +13,7 @@ namespace Task1.Parser
         public static List<DataType> ReturnTree(string filepath, List<DataType> datatypes)
         {
             MatchCollection matches = Methods.CollectionRegex("data/" + filepath.ReturnFilePath(), RegexString.DataTypeRGX);
-            datatypes = DataTypeParser.DoTree(matches);
+            datatypes.AddRange(DoTree(matches));
             return datatypes;
         }
         public static List<DataType> DoTree(MatchCollection collection)

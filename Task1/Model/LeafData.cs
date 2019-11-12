@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Task1.Enums;
 
-namespace Model.Task1
+namespace Task1.Model
 {
     public class LeafData
     {

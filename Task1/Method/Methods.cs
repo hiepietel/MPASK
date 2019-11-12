@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Task1.Enums;
+using Task1.Logs;
 using Task1.Parser;
 
 namespace Task1.Parser
@@ -60,8 +60,9 @@ namespace Task1.Parser
             }
             catch (IOException e)
             {
-                Console.WriteLine("The file could not be read:");
-                Console.WriteLine(e.Message);
+                //Console.WriteLine("The file could not be read:");
+                //Console.WriteLine(e.Message);
+                Logs.Logger.Error("Cannot read file from path: " + source + " " + e.Message);
             }
 
             return toReturn;

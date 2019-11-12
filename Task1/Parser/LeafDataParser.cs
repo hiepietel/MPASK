@@ -1,4 +1,5 @@
-﻿using Model.Task1;
+﻿using Task1.Model;
+using Task1.Logs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,27 +22,35 @@ namespace Task1.Parser
             List<LeafData> listOfLeafs = new List<LeafData>();
             foreach (Match match in collection)
             {
-                string name = match.Groups[1].Value.RemoveSpecialCharacter();
-                string syntax = match.Groups[2].Value.RemoveSpecialCharacter();
-                string access = match.Groups[3].Value.RemoveSpecialCharacter();
-                string status = match.Groups[4].Value.RemoveSpecialCharacter();
-
-                //Descirption
-                string desc = match.Groups[5].Value.RemoveSpecialCharacter().RemoveSpaces();
-                string parentName = match.Groups[6].Value.RemoveSpecialCharacter();
-                int index = Int32.Parse(match.Groups[7].Value.RemoveSpecialCharacter());
-
-                LeafData leaf = new LeafData()
+                 try
                 {
-                    ObjectType = name,
-                    Status = ConverterToEnum.ToStatus(status),
-                    Access = ConverterToEnum.ToAccess(access),
-                    Description = desc, 
-                    ParentName = parentName,
-                    Index = index
+                    string name = match.Groups[1].Value.RemoveSpecialCharacter();
+                    string syntax = match.Groups[2].Value.RemoveSpecialCharacter();
+                    string access = match.Groups[3].Value.RemoveSpecialCharacter();
+                    string status = match.Groups[4].Value.RemoveSpecialCharacter();
 
-                };
-                listOfLeafs.Add(leaf);
+                    //Descirption
+                    string desc = match.Groups[5].Value.RemoveSpecialCharacter().RemoveSpaces();
+                    string parentName = match.Groups[6].Value.RemoveSpecialCharacter();
+                    int index = Int32.Parse(match.Groups[7].Value.RemoveSpecialCharacter());
+
+                    LeafData leaf = new LeafData()
+                    {
+                        ObjectType = name,
+                        Status = ConverterToEnum.ToStatus(status),
+                        Access = ConverterToEnum.ToAccess(access),
+                        Description = desc, 
+                        ParentName = parentName,
+                        Index = index
+
+                    };
+                    listOfLeafs.Add(leaf);
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error("Cannot add new leaf data: " + ex);
+                    throw;
+                }
 
             }
             return listOfLeafs;
