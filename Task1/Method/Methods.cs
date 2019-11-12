@@ -6,11 +6,11 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Task1.Enums;
-using Task1.Method;
+using Task1.Parser;
 
-namespace Task1
+namespace Task1.Parser
 {
-    public static class TaskMethods
+    public static class Methods
     {
         public static MatchCollection CollectionRegex(string source, string regex, bool readFromFile = true)
         {

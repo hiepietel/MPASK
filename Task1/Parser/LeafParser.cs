@@ -6,13 +6,13 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Task1.Model;
 
-namespace Task1.Method
+namespace Task1.Parser
 {
     public static class LeafParser
     {
         public static List<Leaf> ReturnTree(string filepath, List<Leaf> leafs)
         {
-            MatchCollection leafsRGX = TaskMethods.CollectionRegex("data/" + filepath.ReturnFilePath(), RegexString.LeafRGX);
+            MatchCollection leafsRGX = Methods.CollectionRegex("data/" + filepath.ReturnFilePath(), RegexString.LeafRGX);
             List<Leaf> list = DoTree(leafsRGX, leafs);
             return list;
         }

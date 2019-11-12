@@ -10,12 +10,12 @@ namespace Model.Task1
     public class LeafData
     {
         public int Id { get; set; }
-        public int ParentId { get; set; }
 
         public string ObjectType { get; set; }
         public string Description { get; set; }
         public ACCESS Access { get; set; }
         public STATUS Status { get; set; }
-
+        public string ParentName { get; set; }
+        public int Index { get; set; }
     }
 }

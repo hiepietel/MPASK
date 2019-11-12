@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Task1.Enums;
 
-namespace Task1.Method
+namespace Task1.Parser
 {
     public static class ConverterToEnum
     {

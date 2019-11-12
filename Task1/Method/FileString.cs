@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Task1.Method
+namespace Task1.Parser
 {
     public static class FileString
     {

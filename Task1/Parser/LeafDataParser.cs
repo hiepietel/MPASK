@@ -6,10 +6,16 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Task1.Method
+namespace Task1.Parser
 {
     public static class LeafDataParser
     {
+        public static List<LeafData> ReturnTree(string filepath, List<LeafData> leafs)
+        {
+            MatchCollection matches = Methods.CollectionRegex("data/" + filepath.ReturnFilePath(), RegexString.LeafDataRGX);
+            leafs = DoTree(matches);
+            return leafs;
+        }
         public static List<LeafData> DoTree(MatchCollection collection)
         {
             List<LeafData> listOfLeafs = new List<LeafData>();
@@ -21,19 +27,18 @@ namespace Task1.Method
                 string status = match.Groups[4].Value.RemoveSpecialCharacter();
 
                 //Descirption
-                string desc = match.Groups[5].Value.RemoveSpecialCharacter();
-                do
-                {
-                    desc = desc.Replace("  ", " ");
-
-                } while (desc.Contains("  "));
+                string desc = match.Groups[5].Value.RemoveSpecialCharacter().RemoveSpaces();
+                string parentName = match.Groups[6].Value.RemoveSpecialCharacter();
+                int index = Int32.Parse(match.Groups[7].Value.RemoveSpecialCharacter());
 
                 LeafData leaf = new LeafData()
                 {
                     ObjectType = name,
                     Status = ConverterToEnum.ToStatus(status),
                     Access = ConverterToEnum.ToAccess(access),
-                    Description = desc
+                    Description = desc, 
+                    ParentName = parentName,
+                    Index = index
 
                 };
                 listOfLeafs.Add(leaf);

@@ -6,10 +6,16 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Task1.Model;
 
-namespace Task1.Method
+namespace Task1.Parser
 {
     public static class DataTypeParser
     {
+        public static List<DataType> ReturnTree(string filepath, List<DataType> datatypes)
+        {
+            MatchCollection matches = Methods.CollectionRegex("data/" + filepath.ReturnFilePath(), RegexString.DataTypeRGX);
+            datatypes = DataTypeParser.DoTree(matches);
+            return datatypes;
+        }
         public static List<DataType> DoTree(MatchCollection collection)
         {
             List<DataType> dataTypes = new List<DataType>();
