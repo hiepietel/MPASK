@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Task1.Model
 {
-    public class Leaf
+    public class LeafNode
     {
         public int Id { get; set; }
         public string Name { get; set; }

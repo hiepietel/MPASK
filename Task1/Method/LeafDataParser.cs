@@ -10,7 +10,27 @@ namespace Task1.Method
 {
     public static class LeafDataParser
     {
-        public static List<LeafData> DoTree(MatchCollection collection)
+        public static LeafNode DoTree(MatchCollection collection, LeafNode leafs)
+        {
+            foreach (Match match in collection)
+            {
+                string name = match.Groups[1].Value.RemoveSpecialCharacter();
+                string parentName = match.Groups[6].Value.RemoveSpecialCharacter();
+                int index = Int32.Parse(match.Groups[7].Value.RemoveSpecialCharacter());
+                LeafNode master = leafs.SearchNode(parentName, leafs);
+
+                LeafNode newLeaf = new LeafNode()
+                {
+                    Name = name,
+                    Index = index
+                };
+                master.Children.Add(newLeaf);
+
+            }
+            return leafs;
+        }
+
+        public static List<LeafData> DoTree1(MatchCollection collection)
         {
             List<LeafData> listOfLeafs = new List<LeafData>();
             foreach (Match match in collection)

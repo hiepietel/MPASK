@@ -9,7 +9,7 @@ using Task1.Model;
 
 class Program
 {
-    static List<Leaf> leafs = new List<Leaf>();
+    static LeafNode leafs;
     static List<string> importedFiles = new List<string>();
 
     static void Import(string mainFilePath)
@@ -38,11 +38,17 @@ class Program
         ////initData
         string mainFilePath = "RFC1213";
         //leafs = LeafParser.InitTree();
+        leafs = LeafParser.InitNodeTRee();
         ////ImportFromFiles
-        //Import(mainFilePath);
+        Import(mainFilePath);
         ////Add main file 
-        //importedFiles.Add(mainFilePath);
-        //leafs = LeafParser.ReturnTree(mainFilePath, leafs);
+        importedFiles.Add(mainFilePath);
+        
+        leafs = LeafParser.ReturnTree(mainFilePath, leafs);
+        MatchCollection matches = TaskMethods.CollectionRegex("data/" + mainFilePath.ReturnFilePath(), RegexString.LeafDataRGX);
+        leafs = LeafDataParser.DoTree(matches, leafs);
+
+        leafs.PrintTree(leafs);
 
 
 
@@ -52,14 +58,9 @@ class Program
 
 
         //MatchCollection matches = Regex.Matches(TaskMethods.ReadFile("data/MIB.txt"), rgxPro, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.CultureInvariant);
-        MatchCollection matches = TaskMethods.CollectionRegex("data/" + mainFilePath.ReturnFilePath(), RegexString.LeafDataRGX);
-        var leafDatas = LeafDataParser.DoTree(matches);
+
 
         //List <LeafData> listOfLeafs = new List<LeafData>();
-        foreach (var item in leafs)
-        {
-            Console.WriteLine(item.OID + " " +item.Name);
-        }
         Console.ReadKey();
     }
 
