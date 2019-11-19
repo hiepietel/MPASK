@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Task1.Logs;
 using Task1.Model;
 
 namespace Task1.Parser
@@ -20,53 +21,59 @@ namespace Task1.Parser
         {
             foreach (Match match in collection)
             {
-                string name = match.Groups[1].Value.RemoveSpecialCharacter();
-                string[] positions = match.Groups[2].Value.RemoveSpecialCharacter().Split(' '); ;
+                try {
+                    string name = match.Groups[1].Value.RemoveSpecialCharacter();
+                    string[] positions = match.Groups[2].Value.RemoveSpecialCharacter().Split(' '); ;
 
-                string parentName = positions[0];
-                string parentLeaf = leafs.Find(x => x.Name == parentName).Name;
-                string parentOID = leafs.Find(x => x.Name == parentName).OID;
+                    string parentName = positions[0];
+                    string parentLeaf = leafs.Find(x => x.Name == parentName).Name;
+                    string parentOID = leafs.Find(x => x.Name == parentName).OID;
 
-                for (int i = 1; i < positions.Length - 1; i++)
-                {
-                    parentLeaf = leafs.Find(x => x.Name == parentName).Name;
-                    string[] data = positions[i].Split('(');
-                    string nameLeaf = "";
-                    int indexLeaf = 0;
-                    if (data.Length > 1)
+                    for (int i = 1; i < positions.Length - 1; i++)
                     {
-                        nameLeaf = data[0];
-                        
-                        indexLeaf = Int32.Parse(data[1].Remove(data[1].IndexOf(')')));
-                        parentOID = parentOID + "." + indexLeaf.ToString();
-                        
-                        Leaf newLeaf2 = new Leaf()
+                        parentLeaf = leafs.Find(x => x.Name == parentName).Name;
+                        string[] data = positions[i].Split('(');
+                        string nameLeaf = "";
+                        int indexLeaf = 0;
+                        if (data.Length > 1)
                         {
-                            Id = 0,
-                            Name = nameLeaf,
-                            Index = indexLeaf,
-                            ParentName = parentLeaf,
-                            OID = parentOID
+                            nameLeaf = data[0];
 
-                        };
-                        parentLeaf = nameLeaf;
-                        leafs.Add(newLeaf2);
+                            indexLeaf = Int32.Parse(data[1].Remove(data[1].IndexOf(')')));
+                            parentOID = parentOID + "." + indexLeaf.ToString();
+
+                            Leaf newLeaf2 = new Leaf()
+                            {
+                                Id = 0,
+                                Name = nameLeaf,
+                                Index = indexLeaf,
+                                ParentName = parentLeaf,
+                                OID = parentOID
+
+                            };
+                            parentLeaf = nameLeaf;
+                            leafs.Add(newLeaf2);
+                        }
+
+
                     }
 
+                    Leaf newLeaf = new Leaf()
+                    {
+                        Id = 0,
+                        Name = name,
+                        Index = Int32.Parse(positions[positions.Length - 1]),
+                        ParentName = parentLeaf,
+                        OID = parentOID + "." + positions[positions.Length - 1]
 
+                    };
+                    leafs.Add(newLeaf);
                 }
-                
-                Leaf newLeaf = new Leaf()
+                catch
                 {
-                    Id = 0,
-                    Name = name,
-                    Index = Int32.Parse(positions[positions.Length - 1]),
-                    ParentName = parentLeaf,
-                    OID = parentOID + "." + positions[positions.Length - 1]
-
-                };
-                leafs.Add(newLeaf);
-            }
+                    Logger.Error("Cannot make Leaf");
+                }
+                }
             return leafs;
         }
         public static List<Leaf> InitTree()

@@ -49,11 +49,11 @@ namespace Task1.Parser
                     while (!sr.EndOfStream)
                     {
                         string line = sr.ReadLine();
-                        if (line.Contains("--"))
-                        {
-                            int pos = line.IndexOf("--");
-                            line = line.Remove(pos, line.Length - pos);
-                        }
+                        //if (line.Contains("--"))
+                        //{
+                        //    int pos = line.IndexOf("--");
+                        //    line = line.Remove(pos, line.Length - pos);
+                        //}
                         toReturn += line;
                     }
                 }
