@@ -39,7 +39,7 @@ public class LeafNode
     {
         for (int i = 0; i < level; i++)
         {
-            Console.Write(" ");
+            Console.Write(" | ");
         }
         
         Console.WriteLine(" "+master.Index+ " " + master.Name);

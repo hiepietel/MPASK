@@ -17,6 +17,7 @@ namespace Task1.Method
                 string name = match.Groups[1].Value.RemoveSpecialCharacter();
                 string parentName = match.Groups[6].Value.RemoveSpecialCharacter();
                 int index = Int32.Parse(match.Groups[7].Value.RemoveSpecialCharacter());
+                
                 LeafNode master = leafs.SearchNode(parentName, leafs);
 
                 LeafNode newLeaf = new LeafNode()
@@ -24,6 +25,7 @@ namespace Task1.Method
                     Name = name,
                     Index = index
                 };
+
                 master.Children.Add(newLeaf);
 
             }
@@ -35,6 +37,7 @@ namespace Task1.Method
             List<LeafData> listOfLeafs = new List<LeafData>();
             foreach (Match match in collection)
             {
+                
                 string name = match.Groups[1].Value.RemoveSpecialCharacter();
                 string syntax = match.Groups[2].Value.RemoveSpecialCharacter();
                 string access = match.Groups[3].Value.RemoveSpecialCharacter();
