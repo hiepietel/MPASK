@@ -10,7 +10,7 @@ class Program
 {
     static LeafNode leafs;
     static List<string> importedFiles = new List<string>();
-
+    static List<DataType> dataTypes = new List<DataType>();
     static void Import(string mainFilePath)
     {
         Match imports = TaskMethods.MatchRegex("data/" + mainFilePath.ReturnFilePath(), RegexString.ImportsRGX);
@@ -27,6 +27,7 @@ class Program
             {
                 importedFiles.Add(from);
                 leafs = LeafParser.ReturnTree(from, leafs);
+                dataTypes = DataTypeParser.ReturnTree(from, dataTypes);
                 Import(from);
             }
             
@@ -44,16 +45,16 @@ class Program
         importedFiles.Add(mainFilePath);
         
         leafs = LeafParser.ReturnTree(mainFilePath, leafs);
-        MatchCollection matches = TaskMethods.CollectionRegex("data/" + mainFilePath.ReturnFilePath(), RegexString.LeafDataRGX);
-        leafs = LeafDataParser.DoTree(matches, leafs);
+        //MatchCollection matches = TaskMethods.CollectionRegex("data/" + mainFilePath.ReturnFilePath(), RegexString.LeafDataRGX);
+        //leafs = LeafDataParser.DoTree(matches, leafs);
 
         leafs.PrintTree(leafs);
+        LeafNode? searched = leafs.SearchByOID("1.3.6.1",leafs);
 
-
-
+        dataTypes = DataTypeParser.ReturnTree("data/" + mainFilePath.ReturnFilePath(), dataTypes);
         //MatchCollection matchesData = Regex.Matches(TaskMethods.ReadFile("data/FC1155SMI.txt"), dataTypeRGXverOne, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.CultureInvariant);
-        MatchCollection matchesData = TaskMethods.CollectionRegex("data/" + mainFilePath.ReturnFilePath(), RegexString.DataTypeRGX);
-        var dataTypes = DataTypeParser.DoTree(matchesData);
+        //MatchCollection matchesData = TaskMethods.CollectionRegex("data/" + mainFilePath.ReturnFilePath(), RegexString.DataTypeRGX);
+        //var dataTypes = DataTypeParser.DoTree(matchesData);
 
 
         //MatchCollection matches = Regex.Matches(TaskMethods.ReadFile("data/MIB.txt"), rgxPro, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.CultureInvariant);

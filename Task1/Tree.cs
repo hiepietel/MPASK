@@ -12,6 +12,27 @@ public class LeafNode
     public  int Index { get; set; }
     public LeafData? LeafData { get; set; }
     public List<LeafNode> Children { get; set; }
+    public LeafNode? SearchByOID(string OID, LeafNode leafNode)
+    {      
+        string[] indexStr = OID.Split('.');
+        foreach (string index in indexStr)
+        {
+            bool searched = false;
+            foreach (LeafNode child in leafNode.Children)
+            {
+                if (child.Index ==Int32.Parse(index))
+                {
+                    searched = true;
+                    leafNode = child;
+                }
+            }
+            if (!searched) return null;
+
+        }
+        return leafNode;
+
+    }
+    
     public LeafNode SearchNode(string name, LeafNode startLeaf)
     {
         if (startLeaf.Name == name)

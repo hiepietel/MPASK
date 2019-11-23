@@ -10,9 +10,15 @@ namespace Task1.Method
 {
     public static class DataTypeParser
     {
-        public static List<DataType> DoTree(MatchCollection collection)
+        public static List<DataType> ReturnTree(string filepath, List<DataType> dataTypes)
         {
-            List<DataType> dataTypes = new List<DataType>();
+            MatchCollection matchesData = TaskMethods.CollectionRegex("data/" + filepath.ReturnFilePath(), RegexString.DataTypeRGX);
+            // MatchCollection matchesData = TaskMethods.CollectionRegex("data/" + mainFilePath.ReturnFilePath(), RegexString.DataTypeRGX);
+            List<DataType> list = DoTree(matchesData, dataTypes);
+            return dataTypes;
+        }
+        public static List<DataType> DoTree(MatchCollection collection, List<DataType> dataTypes)
+        {
             foreach (Match match in collection)
             {
                 string name = match.Groups[1].Value.RemoveSpecialCharacter();

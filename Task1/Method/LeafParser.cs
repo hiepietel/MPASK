@@ -21,11 +21,28 @@ namespace Task1.Method
             foreach (Match match in collection)
             {
                 string name = match.Groups[1].Value.RemoveSpecialCharacter();
-                string[] positions = match.Groups[2].Value.RemoveSpecialCharacter().Split(' ');
-                string parentName = positions[0];
-                //string[] data = positions[1].Split('(');
-                //int index = Int32.Parse(data[1].Remove(data[1].IndexOf(')')));
-                int index = Int32.Parse(positions[1]);
+                string pos = match.Groups[2].Value.RemoveSpecialCharacter();
+                string[] poss = pos.Split(' ');
+                string parentName = poss[0];
+                for (int i = 1; i < poss.Length-1; i++)
+                {
+                    Match extraLeaf = TaskMethods.MatchRegex(poss[i], RegexString.LeafMany, false);
+                    string singleName = extraLeaf.Groups[1].Value.RemoveSpecialCharacter();
+                    int singlePos = Int32.Parse(extraLeaf.Groups[2].Value.RemoveSpecialCharacter());
+                    LeafNode singleMaster = leafs.SearchNode(parentName, leafs);
+                    LeafNode singleLeaf = new LeafNode()
+                    {
+                        Name = singleName,
+                        Index = singlePos,
+                        LeafData = null
+
+                    };
+                    singleMaster.Children.Add(singleLeaf);
+                    parentName = singleName;
+                }
+                
+               
+                int index = Int32.Parse(poss[poss.Length-1]);
                 LeafNode master = leafs.SearchNode(parentName, leafs);
 
                 LeafNode newLeaf = new LeafNode()
