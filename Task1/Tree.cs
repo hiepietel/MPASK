@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System;
+using Task1.Model;
+
 public class LeafNode
 {
     public LeafNode()
@@ -8,6 +10,7 @@ public class LeafNode
     }
     public string Name { get; set; }
     public  int Index { get; set; }
+    public LeafData? LeafData { get; set; }
     public List<LeafNode> Children { get; set; }
     public LeafNode SearchNode(string name, LeafNode startLeaf)
     {
@@ -41,8 +44,12 @@ public class LeafNode
         {
             Console.Write(" | ");
         }
-        
+        if(master.LeafData != null)
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+        }
         Console.WriteLine(" "+master.Index+ " " + master.Name);
+        Console.ForegroundColor = ConsoleColor.White;
         level++;
         foreach (LeafNode child in master.Children)
         {

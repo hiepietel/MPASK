@@ -53,6 +53,7 @@ namespace Task1
                         {
                             int pos = line.IndexOf("--");
                             line = line.Remove(pos, line.Length - pos);
+                            line += "\n";
                         }
                         toReturn += line;
                     }

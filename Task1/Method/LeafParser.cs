@@ -31,7 +31,9 @@ namespace Task1.Method
                 LeafNode newLeaf = new LeafNode()
                 {
                     Name = name,
-                    Index = index
+                    Index = index,
+                    LeafData =null
+                    
                 };
                 master.Children.Add(newLeaf);
 
