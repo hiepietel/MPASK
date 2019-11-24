@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using Task1;
 using Task1.Method;
 using Task1.Model;
+using Task1.Parser;
 
 class Program
 {
@@ -42,16 +43,16 @@ class Program
         ////ImportFromFiles
         Import(mainFilePath);
         ////Add main file 
-        importedFiles.Add(mainFilePath);
+        importedFiles.Add("data/"+mainFilePath);
         
         leafs = LeafParser.ReturnTree(mainFilePath, leafs);
         //MatchCollection matches = TaskMethods.CollectionRegex("data/" + mainFilePath.ReturnFilePath(), RegexString.LeafDataRGX);
-        //leafs = LeafDataParser.DoTree(matches, leafs);
+        leafs = LeafDataParser.ReturnTree(mainFilePath, leafs);
 
         leafs.PrintTree(leafs);
         LeafNode? searched = leafs.SearchByOID("1.3.6.1",leafs);
-
-        dataTypes = DataTypeParser.ReturnTree("data/" + mainFilePath.ReturnFilePath(), dataTypes);
+        mainFilePath = "RFC1213";
+        dataTypes = DataTypeParser.ReturnTree(mainFilePath, dataTypes);
         //MatchCollection matchesData = Regex.Matches(TaskMethods.ReadFile("data/FC1155SMI.txt"), dataTypeRGXverOne, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.CultureInvariant);
         //MatchCollection matchesData = TaskMethods.CollectionRegex("data/" + mainFilePath.ReturnFilePath(), RegexString.DataTypeRGX);
         //var dataTypes = DataTypeParser.DoTree(matchesData);

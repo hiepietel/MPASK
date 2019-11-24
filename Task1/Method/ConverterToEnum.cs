@@ -19,6 +19,10 @@ namespace Task1.Method
                     return STATUS.mandatory;
                 case "deprecated":
                     return STATUS.deprecated;
+                case "obsolete":
+                    return STATUS.obsolete;
+                case "optional":
+                    return STATUS.optional;
                 default:
                     return STATUS.unknown;
             }
@@ -29,7 +33,7 @@ namespace Task1.Method
             {
                 case "read-only":
                     return ACCESS.read_only;
-                case "read_write":
+                case "read-write":
                     return ACCESS.read_write;
                 case "not-accessible":
                     return ACCESS.not_accessible;

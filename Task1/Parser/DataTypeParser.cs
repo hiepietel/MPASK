@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Task1.Method;
 using Task1.Model;
 
-namespace Task1.Method
+namespace Task1.Parser
 {
     public static class DataTypeParser
     {

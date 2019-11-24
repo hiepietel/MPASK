@@ -5,12 +5,20 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Task1.Method;
 using Task1.Model;
 
-namespace Task1.Method
+namespace Task1.Parser
 {
     public static class LeafDataParser
     {
+        public static LeafNode ReturnTree(string filepath, LeafNode leafs)
+        {
+            MatchCollection LeafDataRGX = TaskMethods.CollectionRegex("data/" + filepath.ReturnFilePath(), RegexString.LeafDataRGX);
+            leafs = DoTree(LeafDataRGX, leafs);
+            return leafs;
+        }
+
         public static LeafNode DoTree(MatchCollection collection, LeafNode leafs)
         {
             foreach (Match match in collection)
