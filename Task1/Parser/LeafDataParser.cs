@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Task1.Enums;
 using Task1.Method;
 using Task1.Model;
 
@@ -12,19 +13,46 @@ namespace Task1.Parser
 {
     public static class LeafDataParser
     {
-        public static LeafNode ReturnTree(string filepath, LeafNode leafs)
+        public static LeafNode ReturnTree(string filepath, LeafNode leafs, List<DataType> dataTypes)
         {
             MatchCollection LeafDataRGX = TaskMethods.CollectionRegex("data/" + filepath.ReturnFilePath(), RegexString.LeafDataRGX);
-            leafs = DoTree(LeafDataRGX, leafs);
+            leafs = DoTree(LeafDataRGX, leafs, dataTypes, filepath);
             return leafs;
         }
-
-        public static LeafNode DoTree(MatchCollection collection, LeafNode leafs)
+        public static int? returnDataType(string syntax, List<DataType> dataTypes)
+        {
+            try
+            {
+                int? indexOfDataType = dataTypes.Where(x => x.Name == syntax).FirstOrDefault().Id;
+                return indexOfDataType;
+            }
+            catch(Exception ex)
+            {
+                return null;
+            }
+        }
+        public static LeafNode DoTree(MatchCollection collection, LeafNode leafs, List<DataType> dataTypes, string filepath)
         {
             foreach (Match match in collection)
             {
                 //To LeafData
+                Sequence? sequence = null;
                 string syntax = match.Groups[2].Value.RemoveSpecialCharacter();
+                int? objectType = null;
+                DATATYPE? classicDataType = ConverterToEnum.ToDatatype(syntax);
+                if (classicDataType == DATATYPE.UNKNOWN)
+                {
+                    objectType = returnDataType(syntax, dataTypes);
+                    if (objectType == null)
+                    {
+                        sequence = SequenceParser.ReturnSequence(filepath, syntax);
+                    }
+                    if (sequence != null || objectType != null)
+                    {
+                        classicDataType = null;
+                    }
+              
+                }
                 string restricion = match.Groups[3].Value.RemoveSpecialCharacter();
                 string access = match.Groups[4].Value.RemoveSpecialCharacter();
                 string status = match.Groups[5].Value.RemoveSpecialCharacter();
@@ -36,7 +64,9 @@ namespace Task1.Parser
                 {
                     Index = indexTab,
                     Restrictions = restricion,
-                    Syntax = syntax,
+                    ClassicDataType = classicDataType,
+                    ImportedObjectType = objectType,
+                    SequenceObjectType = sequence,
                     Status = ConverterToEnum.ToStatus(status),
                     Access = ConverterToEnum.ToAccess(access),
                     Description = description

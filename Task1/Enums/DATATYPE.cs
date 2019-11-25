@@ -11,6 +11,10 @@ namespace Task1.Enums
         UNKNOWN,
         OCTET_STRING,
         INTEGER,
+        DISPLAY_STRING,
+        OBJECT_IDENTIFIER,
+        PHYSADDRESS, 
+        NETWORKADDRESS
 
     }
 }

@@ -9,7 +9,7 @@ namespace Task1.Method
     public static class RegexString
     {
         //(?<name>[0-9a-zA-z ]*)\sOBJECT-TYPE\s*SYNTAX\W*(?<syntax>[a-zA-z ]*)\W(?:\s*|(?<rest>[0-9a-zA-Z()\s.]*)\))\W*ACCESS\W*(?<access>[a-zA-Z-]*)\s*STATUS\W*(?<status>[a-zA-z]*)\s*DESCRIPTION\s*\"(?<description>[^\"]*)\"\s*(?:\s*|INDEX\s*{\s(?<indexx>[^}]*)}\s*)::=\s{\s(?<op>[a-zA-Z0-9]*)\s*(?<index>[0-9]*)\s*}
-        public static string LeafDataRGX { get { return "(?<name>[0-9a-zA-z ]*)\\sOBJECT-TYPE\\s*SYNTAX\\W*(?<syntax>[a-zA-z ]*)\\W(?:\\s*|(?<rest>[0-9a-zA-Z()\\s.]*)\\))\\W*ACCESS\\W*(?<access>[a-zA-Z-]*)\\s*STATUS\\W*(?<status>[a-zA-z]*)\\s*DESCRIPTION\\s*\"(?<description>[^\"]*)\"\\s*(?:\\s*|INDEX\\s*{\\s(?<indexx>[^}]*)}\\s*)::=\\s{\\s(?<op>[a-zA-Z0-9]*)\\s*(?<index>[0-9]*)\\s*}"; } } 
+        public static string LeafDataRGX { get { return "(?<name>[0-9a-zA-z ]*)\\sOBJECT-TYPE\\s*SYNTAX\\W*(?<syntax>[a-zA-z\\s]*)\\W(?:\\s*|(?<rest>[0-9a-zA-Z()\\s.]*)\\))\\W*ACCESS\\W*(?<access>[a-zA-Z-]*)\\s*STATUS\\W*(?<status>[a-zA-z]*)\\s*DESCRIPTION\\s*\"(?<description>[^\"]*)\"\\s*(?:\\s*|INDEX\\s*{\\s(?<indexx>[^}]*)}\\s*)::=\\s{\\s(?<op>[a-zA-Z0-9]*)\\s*(?<index>[0-9]*)\\s*}"; } } 
         public static string DataTypeRGX { get { return @"(?<TypeName>\w*\s*)::=\s*\[(?<APP>\s*\w*\s*)(?<typeID>\d+)\s*\]\s*(?<typeTYPE>[A-Z]*)\s(?<parentType>[a-zA-Z ]*)(?:\s|\((?<restrictions>[0-9a-zA-z.() ]*)\))"; } }
         public static string LeafRGX { get { return @"\s*(?<restrictions>[0-9a-zA-Z-]*)\s*OBJECT\sIDENTIFIER\s::=\s{\s(?<res>[^}]*)}"; } }
         /// <summary>

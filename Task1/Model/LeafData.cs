@@ -12,11 +12,13 @@ namespace Task1.Model
         /// <summary>
         /// DisplayString
         /// </summary>
-        public string Syntax { get; set; }
+        public int? ImportedObjectType { get; set; }
+        public DATATYPE? ClassicDataType { get; set; }
         /// <summary>
         ///  (SIZE (0..255))
         /// </summary>
         public string Restrictions { get; set; }
+        public Sequence SequenceObjectType { get; set; }
         /// <summary>
         ///  read-only
         /// </summary>

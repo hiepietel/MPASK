@@ -8,8 +8,9 @@ namespace Task1.Model
 {
     public class Sequence
     {
-        public string name { get; set; }
+        public string Name { get; set; }
         public bool IsSequenceOf { get; set; }
+        public string TempElements { get; set; }
         public List<ElementOfSequnce> ElementsOfSequnces { get; set; }
     }
 

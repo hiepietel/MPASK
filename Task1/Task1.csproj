@@ -69,5 +69,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="MIB\FC1155SMI.txt" />
+    <Content Include="MIB\RFC1158-MIB.txt" />
+    <Content Include="MIB\RFC1212-MIB.txt" />
+    <Content Include="MIB\RFC1213-MIB.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

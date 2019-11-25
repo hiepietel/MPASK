@@ -46,13 +46,14 @@ class Program
         importedFiles.Add("data/"+mainFilePath);
         
         leafs = LeafParser.ReturnTree(mainFilePath, leafs);
+        dataTypes = DataTypeParser.ReturnTree(mainFilePath, dataTypes);
         //MatchCollection matches = TaskMethods.CollectionRegex("data/" + mainFilePath.ReturnFilePath(), RegexString.LeafDataRGX);
-        leafs = LeafDataParser.ReturnTree(mainFilePath, leafs);
+        leafs = LeafDataParser.ReturnTree(mainFilePath, leafs, dataTypes);
 
         leafs.PrintTree(leafs);
         LeafNode? searched = leafs.SearchByOID("1.3.6.1",leafs);
         mainFilePath = "RFC1213";
-        dataTypes = DataTypeParser.ReturnTree(mainFilePath, dataTypes);
+        
         //MatchCollection matchesData = Regex.Matches(TaskMethods.ReadFile("data/FC1155SMI.txt"), dataTypeRGXverOne, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.CultureInvariant);
         //MatchCollection matchesData = TaskMethods.CollectionRegex("data/" + mainFilePath.ReturnFilePath(), RegexString.DataTypeRGX);
         //var dataTypes = DataTypeParser.DoTree(matchesData);

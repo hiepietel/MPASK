@@ -67,10 +67,18 @@ namespace Task1.Method
         {
             switch (str)
             {
-                case "APPLICATION":
+                case "OCTET STRING":
                     return DATATYPE.OCTET_STRING;
                 case "INTEGER":
-                    return DATATYPE.INTEGER;
+                    return DATATYPE.INTEGER;                   
+                case "OBJECT IDENTIFIER":
+                    return DATATYPE.OBJECT_IDENTIFIER;                
+                case "PhysAddress":
+                    return DATATYPE.PHYSADDRESS;                
+                case "DisplayString":
+                    return DATATYPE.DISPLAY_STRING;                
+                case "NetworkAddress":
+                    return DATATYPE.DISPLAY_STRING;
                 default:
                     return DATATYPE.UNKNOWN;
             }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System;
 using Task1.Model;
+using Task1.Enums;
 
 public class LeafNode
 {
@@ -65,10 +66,8 @@ public class LeafNode
         {
             Console.Write(" | ");
         }
-        if(master.LeafData != null)
-        {
-            Console.ForegroundColor = ConsoleColor.Cyan;
-        }
+        //dataleaf is
+        Console.ForegroundColor = returnConsoleColor(master);
         Console.WriteLine(" "+master.Index+ " " + master.Name);
         Console.ForegroundColor = ConsoleColor.White;
         level++;
@@ -78,6 +77,64 @@ public class LeafNode
                 PrintTree(child, level);
         }
         level--;
+    }
+    public ConsoleColor returnConsoleColor(LeafNode master)
+    {
+        //white - normal
+        //Cyan - is dataleaf
+        //DarkMagenta - leaf data and datatype
+
+        ConsoleColor color = ConsoleColor.White;
+        if (master.LeafData != null)
+        {
+            color = ConsoleColor.Cyan;
+        }
+        //is datatype
+        try
+        {
+            if (master.LeafData.ClassicDataType!= null)
+            {
+                color = ConsoleColor.Blue;
+                if(master.LeafData.ClassicDataType == DATATYPE.UNKNOWN)
+                {
+                    color = ConsoleColor.DarkYellow;
+                }
+            }
+        }
+        catch(Exception ex)
+        {
+
+        }
+        try
+        {
+            if (master.LeafData.ImportedObjectType != null)
+            {
+                color = ConsoleColor.DarkMagenta;
+            }
+        }
+        catch (Exception ex)
+        {
+
+        }
+        try
+        {
+            if (master.LeafData.SequenceObjectType != null)
+            {
+                if (master.LeafData.SequenceObjectType.IsSequenceOf)
+                {
+                    color = ConsoleColor.DarkRed;
+                }
+                else
+                {
+                    color = ConsoleColor.Green;
+                }
+            }
+        }
+        catch(Exception ex)
+        {
+
+        }
+        return color;
     }
 
 }
