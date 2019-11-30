@@ -2,6 +2,7 @@
 using System;
 using Task1.Model;
 using Task1.Enums;
+using Task1.Method;
 
 public class LeafNode
 {
@@ -11,6 +12,7 @@ public class LeafNode
     }
     public string Name { get; set; }
     public  int Index { get; set; }
+
     public LeafData? LeafData { get; set; }
     public List<LeafNode> Children { get; set; }
     public LeafNode? SearchByOID(string OID, LeafNode leafNode)
@@ -67,7 +69,7 @@ public class LeafNode
             Console.Write(" | ");
         }
         //dataleaf is
-        Console.ForegroundColor = returnConsoleColor(master);
+        Console.ForegroundColor = TaskMethods.ReturnConsoleColor(master);
         Console.WriteLine(" "+master.Index+ " " + master.Name);
         Console.ForegroundColor = ConsoleColor.White;
         level++;
@@ -78,63 +80,6 @@ public class LeafNode
         }
         level--;
     }
-    public ConsoleColor returnConsoleColor(LeafNode master)
-    {
-        //white - normal
-        //Cyan - is dataleaf
-        //DarkMagenta - leaf data and datatype
-
-        ConsoleColor color = ConsoleColor.White;
-        if (master.LeafData != null)
-        {
-            color = ConsoleColor.Cyan;
-        }
-        //is datatype
-        try
-        {
-            if (master.LeafData.ClassicDataType!= null)
-            {
-                color = ConsoleColor.Blue;
-                if(master.LeafData.ClassicDataType == DATATYPE.UNKNOWN)
-                {
-                    color = ConsoleColor.DarkYellow;
-                }
-            }
-        }
-        catch(Exception ex)
-        {
-
-        }
-        try
-        {
-            if (master.LeafData.ImportedObjectType != null)
-            {
-                color = ConsoleColor.DarkMagenta;
-            }
-        }
-        catch (Exception ex)
-        {
-
-        }
-        try
-        {
-            if (master.LeafData.SequenceObjectType != null)
-            {
-                if (master.LeafData.SequenceObjectType.IsSequenceOf)
-                {
-                    color = ConsoleColor.DarkRed;
-                }
-                else
-                {
-                    color = ConsoleColor.Green;
-                }
-            }
-        }
-        catch(Exception ex)
-        {
-
-        }
-        return color;
-    }
+   
 
 }

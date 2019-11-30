@@ -14,7 +14,6 @@ class Program
         MIBreader mibreader = new MIBreader();
         mibreader.Import();
         mibreader.leafs.PrintTree(mibreader.leafs);
-        LeafNode? searched = mibreader.leafs.SearchByOID("1.3.6.1", mibreader.leafs);
         Console.ReadKey();
     }
 
