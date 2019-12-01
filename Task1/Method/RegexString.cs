@@ -20,6 +20,7 @@ namespace Task1.Method
         public static string ImportSortedRGX { get { return @"(?<datas>[A-z-,\s]*) FROM (?<from>[0-9A-z-]*)"; } }
         //(?<sequnce>[a-zA-z]*)\W::=\s*SEQUENCE\W{\s*(?<main>[a-zA-Z,.\w\s()]*)\s*}
         public static string ImportSEQUENCE { get { return @"(?<sequnce>[a-zA-z]*)\W::=\s*SEQUENCE\W{\s*(?<main>[a-zA-Z,.\w\s()]*)\s*}"; } }
+        public static string ImportRestricion { get { return @"(?:|[A-Z]*\()(?<min>[0-9]*)\.\.(?<max>[0-9]*)(?:|\))"; } }
 
     }
 }

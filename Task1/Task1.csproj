@@ -52,6 +52,7 @@
     <Compile Include="Enums\TYPE.cs" />
     <Compile Include="MIBreader.cs" />
     <Compile Include="Method\ConverterToEnum.cs" />
+    <Compile Include="Model\Restricion.cs" />
     <Compile Include="Model\Sequence.cs" />
     <Compile Include="Parser\DataTypeParser.cs" />
     <Compile Include="Method\FileString.cs" />

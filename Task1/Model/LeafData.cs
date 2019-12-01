@@ -17,6 +17,8 @@ namespace Task1.Model
         /// <summary>
         ///  (SIZE (0..255))
         /// </summary>
+        public Restricion? DTRestricion { get; set; }
+        public Dictionary<int, string>? DTEnum { get; set; }
         public string Restrictions { get; set; }
         public Sequence SequenceObjectType { get; set; }
         /// <summary>

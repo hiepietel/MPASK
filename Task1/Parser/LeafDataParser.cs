@@ -36,6 +36,7 @@ namespace Task1.Parser
             foreach (Match match in collection)
             {
                 //To LeafData
+                #nullable enable
                 Sequence? sequence = null;
                 string syntax = match.Groups[2].Value.RemoveSpecialCharacter();
                 int? objectType = null;
@@ -54,6 +55,26 @@ namespace Task1.Parser
               
                 }
                 string restricion = match.Groups[3].Value.RemoveSpecialCharacter();
+                Restricion res = null;
+                if(restricion != "")
+                {
+                    
+                    if (restricion.Contains("{") && restricion.Contains("}"))
+                    {
+
+                    }
+                    else
+                    {
+                        res = new Restricion();
+                        if (restricion.Contains("SIZE"))
+                        {
+                            res.HasSize = true;
+                        }
+                        Match resMatch = TaskMethods.MatchRegex(restricion, RegexString.ImportRestricion, false);
+                        res.Min = Int32.Parse(resMatch.Groups[1].Value.RemoveSpecialCharacter());
+                        res.Max = Int32.Parse(resMatch.Groups[2].Value.RemoveSpecialCharacter());
+                    }
+                }
                 string access = match.Groups[4].Value.RemoveSpecialCharacter();
                 string status = match.Groups[5].Value.RemoveSpecialCharacter();
                 string description = match.Groups[6].Value.RemoveSpecialCharacter().RemoveSpaces();
@@ -64,6 +85,7 @@ namespace Task1.Parser
                 {
                     Index = indexTab,
                     Restrictions = restricion,
+                    DTRestricion = res,
                     ClassicDataType = classicDataType,
                     ImportedObjectType = objectType,
                     SequenceObjectType = sequence,
