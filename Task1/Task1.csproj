@@ -52,6 +52,7 @@
     <Compile Include="Enums\TYPE.cs" />
     <Compile Include="MIBreader.cs" />
     <Compile Include="Method\ConverterToEnum.cs" />
+    <Compile Include="Parser\EnumParser.cs" />
     <Compile Include="Model\Restricion.cs" />
     <Compile Include="Model\Sequence.cs" />
     <Compile Include="Parser\DataTypeParser.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Model\DataType.cs" />
     <Compile Include="Model\Leaf.cs" />
     <Compile Include="Model\LeafData.cs" />
+    <Compile Include="Parser\RestricionParser.cs" />
     <Compile Include="Parser\SequenceParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

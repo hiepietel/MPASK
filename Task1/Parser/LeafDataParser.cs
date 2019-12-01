@@ -55,30 +55,17 @@ namespace Task1.Parser
               
                 }
                 string restricion = match.Groups[3].Value.RemoveSpecialCharacter();
-                Restricion res = null;
-                if(restricion != "")
+                Restricion res = RestricionParser.ReturnRestricion(restricion);
+                string enumm = match.Groups[4].Value.RemoveSpecialCharacter();
+                Dictionary<int, string> enumDict = EnumParser.ReturnEnum(enumm);
+                if(res == null && enumDict != null)
                 {
-                    
-                    if (restricion.Contains("{") && restricion.Contains("}"))
-                    {
-
-                    }
-                    else
-                    {
-                        res = new Restricion();
-                        if (restricion.Contains("SIZE"))
-                        {
-                            res.HasSize = true;
-                        }
-                        Match resMatch = TaskMethods.MatchRegex(restricion, RegexString.ImportRestricion, false);
-                        res.Min = Int32.Parse(resMatch.Groups[1].Value.RemoveSpecialCharacter());
-                        res.Max = Int32.Parse(resMatch.Groups[2].Value.RemoveSpecialCharacter());
-                    }
+                    res = RestricionParser.ReturnRestricionFromEnum(enumDict);
                 }
-                string access = match.Groups[4].Value.RemoveSpecialCharacter();
-                string status = match.Groups[5].Value.RemoveSpecialCharacter();
-                string description = match.Groups[6].Value.RemoveSpecialCharacter().RemoveSpaces();
-                string indexx = match.Groups[7].Value.RemoveSpecialCharacter();
+                string access = match.Groups[5].Value.RemoveSpecialCharacter();
+                string status = match.Groups[6].Value.RemoveSpecialCharacter();
+                string description = match.Groups[7].Value.RemoveSpecialCharacter().RemoveSpaces();
+                string indexx = match.Groups[8].Value.RemoveSpecialCharacter();
                 string[] indexTab = indexx.Split(',');
                 //string restricion = match.Groups[8].Value.RemoveSpecialCharacter();
                 LeafData leafData = new LeafData()
@@ -86,6 +73,7 @@ namespace Task1.Parser
                     Index = indexTab,
                     Restrictions = restricion,
                     DTRestricion = res,
+                    DTEnum = enumDict,
                     ClassicDataType = classicDataType,
                     ImportedObjectType = objectType,
                     SequenceObjectType = sequence,
@@ -95,8 +83,8 @@ namespace Task1.Parser
                 };
                 //To tree
                 string name = match.Groups[1].Value.RemoveSpecialCharacter();
-                string parentName = match.Groups[8].Value.RemoveSpecialCharacter();
-                int index = Int32.Parse(match.Groups[9].Value.RemoveSpecialCharacter());
+                string parentName = match.Groups[9].Value.RemoveSpecialCharacter();
+                int index = Int32.Parse(match.Groups[10].Value.RemoveSpecialCharacter());
 
                 LeafNode master = leafs.SearchNode(parentName, leafs);
 
