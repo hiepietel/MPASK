@@ -50,6 +50,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnumsTests.cs" />
+    <Compile Include="FileStringTests.cs" />
+    <Compile Include="TreeDynamicTests.cs" />
     <Compile Include="TreeTests.cs" />
     <Compile Include="ConsoleColorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
