@@ -11,9 +11,10 @@ namespace Task2
     {
         static void Main(string[] args)
         {
-            MIBreader mibreader = new MIBreader();
-            mibreader.Import();
-            mibreader.leafs.PrintTree(mibreader.leafs);
+            Reader.Read();
+            //MIBreader mibreader = new MIBreader();
+            //mibreader.Import();
+            //mibreader.leafs.PrintTree(mibreader.leafs);
             Console.ReadKey();
         }
     }

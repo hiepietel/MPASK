@@ -1,0 +1,10 @@
+age INTEGER ::= 45
+name UTF8String ::= "bob"
+
+Deklaracja sekwencji:
+MySequence ::= SEQUENCE {
+age INTEGER,
+name UTF8String
+}
+
+seq MySequence ::= { 50, "bob" }

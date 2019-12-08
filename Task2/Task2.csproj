@@ -50,7 +50,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reader.cs" />
-    <Compile Include="RegexString.cs" />
+    <Compile Include="Rgx\RegexString.cs" />
+    <Compile Include="Rgx\RgxComp.cs" />
+    <Compile Include="Rgx\RgxGroup.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -60,6 +62,9 @@
       <Project>{7108e7f2-ac68-4a1c-840c-3afa1bca9718}</Project>
       <Name>Task1</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Orders\Orders.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

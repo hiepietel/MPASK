@@ -59,7 +59,7 @@
     <Compile Include="Method\FileString.cs" />
     <Compile Include="Parser\LeafDataParser.cs" />
     <Compile Include="Parser\LeafParser.cs" />
-    <Compile Include="Method\RegexString.cs" />
+    <Compile Include="Rgx\RgxString.cs" />
     <Compile Include="Model\DataType.cs" />
     <Compile Include="Model\Leaf.cs" />
     <Compile Include="Model\LeafData.cs" />

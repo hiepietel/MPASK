@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Task1.Enums;
 using Task1.Method;
 using Task1.Model;
+using Task1.Rgx;
 
 namespace Task1.Parser
 {
@@ -15,7 +16,7 @@ namespace Task1.Parser
     {
         public static LeafNode ReturnTree(string filepath, LeafNode leafs, List<DataType> dataTypes)
         {
-            MatchCollection LeafDataRGX = TaskMethods.CollectionRegex("data/" + filepath.ReturnFilePath(), RegexString.LeafDataRGX);
+            MatchCollection LeafDataRGX = TaskMethods.CollectionRegex("data/" + filepath.ReturnFilePath(), RgxString.LeafDataRGX);
             leafs = DoTree(LeafDataRGX, leafs, dataTypes, filepath);
             return leafs;
         }

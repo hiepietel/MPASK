@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Task1.Method
+namespace Task1.Rgx
 {
-    public static class RegexString
+    public static class RgxString
     {
         //(?<name>[0-9a-zA-z ]*)\sOBJECT-TYPE\s*SYNTAX\W(?<syntax>[a-zA-z ]*)\W(?:\s*|(?<rest>[0-9a-zA-Z()\s.]*)|(?<enum>\{[0-9a-zA-z\(\)\,\.\-\s]*\}))\W*ACCESS\W*(?<access>[a-zA-Z-]*)\s*STATUS\W*(?<status>[a-zA-z]*)\s*DESCRIPTION\s*\"(?<description>[^\"]*)\"\s*(?:\s*|INDEX\s*{\s(?<indexx>[^}]*)}\s*)::=\s{\s(?<op>[a-zA-Z0-9]*)\s*(?<index>[0-9]*)\s
         public static string LeafDataRGX { get { return "(?<name>[0-9a-zA-z ]*)\\sOBJECT-TYPE\\s*SYNTAX\\W(?<syntax>[a-zA-z ]*)\\W(?:\\s*|(?<rest>[0-9a-zA-Z()\\s.]*)|(?<enum>\\{[0-9a-zA-z\\(\\)\\,\\.\\-\\s]*\\}))\\W*ACCESS\\W*(?<access>[a-zA-Z-]*)\\s*STATUS\\W*(?<status>[a-zA-z]*)\\s*DESCRIPTION\\s*\"(?<description>[^\"]*)\"\\s*(?:\\s*|INDEX\\s*{\\s(?<indexx>[^}]*)}\\s*)::=\\s{\\s(?<op>[a-zA-Z0-9]*)\\s*(?<index>[0-9]*)\\s"; } } 

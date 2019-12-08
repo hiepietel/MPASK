@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Task1.Method;
 using Task1.Model;
+using Task1.Rgx;
 
 namespace Task1.Parser
 {
@@ -13,7 +14,7 @@ namespace Task1.Parser
     {
         public static List<DataType> ReturnTree(string filepath, List<DataType> dataTypes)
         {
-            MatchCollection matchesData = TaskMethods.CollectionRegex("data/" + filepath.ReturnFilePath(), RegexString.DataTypeRGX);
+            MatchCollection matchesData = TaskMethods.CollectionRegex("data/" + filepath.ReturnFilePath(), RgxString.DataTypeRGX);
             // MatchCollection matchesData = TaskMethods.CollectionRegex("data/" + mainFilePath.ReturnFilePath(), RegexString.DataTypeRGX);
             List<DataType> list = DoTree(matchesData, dataTypes);
             return dataTypes;

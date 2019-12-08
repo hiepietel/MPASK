@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Task1.Enums;
 using Task1.Method;
+using Task1.Rgx;
 
 namespace Task1.Method
 {

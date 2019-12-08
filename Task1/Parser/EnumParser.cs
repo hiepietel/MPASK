@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Task1.Method;
+using Task1.Rgx;
 namespace Task1.Parser
 {
     public static class EnumParser
@@ -14,7 +15,7 @@ namespace Task1.Parser
             if(enumm != "")
             {
                 Dictionary<int, string> dict = new Dictionary<int, string>();
-                MatchCollection collection = TaskMethods.CollectionRegex(enumm, RegexString.ImportEnum, false);
+                MatchCollection collection = TaskMethods.CollectionRegex(enumm, RgxString.ImportEnum, false);
                 foreach(Match col in collection)
                 {
                     string name = col.Groups[1].Value.RemoveSpecialCharacter();

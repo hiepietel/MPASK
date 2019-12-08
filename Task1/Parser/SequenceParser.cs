@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Task1.Method;
 using Task1.Model;
+using Task1.Rgx;
 
 namespace Task1.Parser
 {
@@ -13,7 +14,7 @@ namespace Task1.Parser
     {
         public static Sequence? ReturnSequence(string filepath, string seqq)
         {
-            MatchCollection matchesData = TaskMethods.CollectionRegex("data/" + filepath.ReturnFilePath(), RegexString.ImportSEQUENCE);
+            MatchCollection matchesData = TaskMethods.CollectionRegex("data/" + filepath.ReturnFilePath(), RgxString.ImportSEQUENCE);
             // MatchCollection matchesData = TaskMethods.CollectionRegex("data/" + mainFilePath.ReturnFilePath(), RegexString.DataTypeRGX);
             //List<DataType> list = DoTree(matchesData, dataTypes);
             foreach  (Match match in matchesData)

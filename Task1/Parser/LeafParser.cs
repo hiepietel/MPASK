@@ -6,14 +6,14 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Task1.Method;
 using Task1.Model;
-
+using Task1.Rgx;
 namespace Task1.Parser
 {
     public static class LeafParser
     {
         public static LeafNode ReturnTree(string filepath, LeafNode leafs)
         {
-            MatchCollection leafsRGX = TaskMethods.CollectionRegex("data/" + filepath.ReturnFilePath(), RegexString.LeafRGX );
+            MatchCollection leafsRGX = TaskMethods.CollectionRegex("data/" + filepath.ReturnFilePath(), RgxString.LeafRGX );
             leafs = DoTree(leafsRGX, leafs);
             return leafs;
         }
@@ -29,7 +29,7 @@ namespace Task1.Parser
                 string parentName = poss[0];
                 for (int i = 1; i < poss.Length-1; i++)
                 {
-                    Match extraLeaf = TaskMethods.MatchRegex(poss[i], RegexString.LeafMany, false);
+                    Match extraLeaf = TaskMethods.MatchRegex(poss[i], RgxString.LeafMany, false);
                     string singleName = extraLeaf.Groups[1].Value.RemoveSpecialCharacter();
                     int singlePos = Int32.Parse(extraLeaf.Groups[2].Value.RemoveSpecialCharacter());
                     LeafNode singleMaster = leafs.SearchNode(parentName, leafs);

@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Task1.Method;
 using Task1.Model;
+using Task1.Rgx;
 
 namespace Task1.Parser
 {
@@ -21,7 +22,7 @@ namespace Task1.Parser
                 {
                     res.HasSize = true;
                 }
-                Match resMatch = TaskMethods.MatchRegex(restricion, RegexString.ImportRestricion, false);
+                Match resMatch = TaskMethods.MatchRegex(restricion, RgxString.ImportRestricion, false);
                 res.Min = Int32.Parse(resMatch.Groups[1].Value.RemoveSpecialCharacter());
                 res.Max = Int32.Parse(resMatch.Groups[2].Value.RemoveSpecialCharacter());
                 return res;

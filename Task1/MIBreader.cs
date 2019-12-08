@@ -6,7 +6,7 @@ using Task1;
 using Task1.Method;
 using Task1.Model;
 using Task1.Parser;
-
+using Task1.Rgx;
 
 namespace Task1
 {
@@ -55,9 +55,9 @@ namespace Task1
         partial void Import(string filePath)
         {
 
-            Match imports = TaskMethods.MatchRegex("data/" + filePath.ReturnFilePath(), RegexString.ImportsRGX);
+            Match imports = TaskMethods.MatchRegex("data/" + filePath.ReturnFilePath(), RgxString.ImportsRGX);
             string toImport = imports.Value.Replace("IMPORTS", "").RemoveSpecialCharacter().RemoveSpaces();
-            MatchCollection importData = TaskMethods.CollectionRegex(toImport, RegexString.ImportSortedRGX, false);
+            MatchCollection importData = TaskMethods.CollectionRegex(toImport, RgxString.ImportSortedRGX, false);
             foreach (Match itemm in importData)
             {
                 //List<string> datatypesToImport= itemm.Groups[1].Value.RemoveSpecialCharacter().Split(',').T;
