@@ -11,7 +11,7 @@ namespace Task2
     {
         static void Main(string[] args)
         {
-            Reader.Read();
+            //Reader.Read();
             //MIBreader mibreader = new MIBreader();
             //mibreader.Import();
             //mibreader.leafs.PrintTree(mibreader.leafs);

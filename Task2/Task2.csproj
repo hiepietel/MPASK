@@ -43,13 +43,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Coder.cs" />
+    <Compile Include="Enums\SimpleDataType.cs" />
+    <Compile Include="Method\ConverterToEnum.cs" />
     <Compile Include="Enums\TagClass.cs" />
     <Compile Include="Enums\TagPC.cs" />
     <Compile Include="Model\BER.cs" />
     <Compile Include="Model\Tag.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reader.cs" />
     <Compile Include="Rgx\RegexString.cs" />
     <Compile Include="Rgx\RgxComp.cs" />
     <Compile Include="Rgx\RgxGroup.cs" />
