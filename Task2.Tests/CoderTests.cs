@@ -15,12 +15,15 @@ namespace Task2.Tests
             {
                 TPC = TagPC.Primitive,
                 TClass = TagClass.universal,
-                Length = 2
+                TagNumber = 2
             };
             Tag codedTag = Coder.CodeTag("INTEGER");
             Assert.AreEqual(tag.TClass, codedTag.TClass);
             Assert.AreEqual(tag.TPC, codedTag.TPC);
-            Assert.AreEqual(tag.Length, codedTag.Length);
+            Assert.AreEqual(tag.TagNumber, codedTag.TagNumber);
+        }
+        public void AssignDataTest()
+        {
 
         }
     }

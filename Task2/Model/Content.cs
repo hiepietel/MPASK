@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Task2.Model
 {
-    public class BER
+    public class Content
     {
-        public Tag Type { get; set; }
-        public object Length { get; set; }
-        public object Content { get; set; }
+
     }
 }

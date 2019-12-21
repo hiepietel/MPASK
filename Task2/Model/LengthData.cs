@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Task2.Enums;
 
 namespace Task2.Model
 {
-    public class BER
+    public class LengthData
     {
-        public Tag Type { get; set; }
-        public object Length { get; set; }
-        public object Content { get; set; }
+        public LengthType LType { get; set; }
     }
 }

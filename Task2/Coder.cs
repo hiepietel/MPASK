@@ -21,11 +21,41 @@ namespace Task2
                 {
                     TPC = TagPC.Primitive,
                     TClass =TagClass.universal,
-                    Length = (int)simpleDataType
+                    TagNumber = (int)simpleDataType
                 };
                 return tag;
             }
             return null;
+        }
+        public static LengthData CodeData(string value, Tag tag)
+        {
+            LengthData LData = new LengthData();
+            string hexValue = "";
+            if (tag.TagNumber == (int)SimpleDataType.INTEGER)
+            {
+                try
+                {
+                    int newValue = Convert.ToInt32(value);
+                    hexValue = Convert.ToString(newValue, 16);
+                    int length = hexValue.Length/2;
+                }
+                catch
+                {
+                    //Console.WriteLine("C");
+                    //return null;
+                }
+            }
+            if(int.Parse(hexValue) < 128)
+            {
+                LData.LType = LengthType.ShortForm;
+            }
+            else if(int.Parse(hexValue) >= 128)
+            {
+                LData.LType = LengthType.LongForm;
+            }
+
+            return LData;
+           // int hexValue = Convert.ToInt32(value, 16);
         }
     }
 }

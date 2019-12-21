@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace Task2.Enums
 {
-    /// <summary>
-    /// Primitive -> 0, Contructed -> 1
-    /// </summary>
-    public enum TagPC
+    public enum LengthType
     {
-        Primitive, //0
-        Constructed //1
+        ShortForm, LongForm, UnspecifiedForm
     }
 }
