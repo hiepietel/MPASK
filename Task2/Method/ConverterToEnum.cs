@@ -9,22 +9,22 @@ namespace Task2.Method
 {
     public static class ConverterToEnum
     {
-        public static SimpleDataType ToSimpleDatatype(string str)
+        public static DataType ToSimpleDatatype(string str)
         {
             switch (str)
             {
                 case "INTEGER":
-                    return SimpleDataType.INTEGER;
+                    return DataType.INTEGER;
                 case "BIT STRING":
-                    return SimpleDataType.BIT_STRING;
+                    return DataType.BIT_STRING;
                 case "OCTET STRING":
-                    return SimpleDataType.OCTET_STRING;
+                    return DataType.OCTET_STRING;
                 case "NULL":
-                    return SimpleDataType.NULL;
+                    return DataType.NULL;
                 case "OBJECT IDENTIFIER":
-                    return SimpleDataType.OBJECT_IDENTIFIER;
+                    return DataType.OBJECT_IDENTIFIER;
                 default:
-                    return SimpleDataType.UNKNOWN;
+                    return DataType.UNKNOWN;
             }
         }
     }

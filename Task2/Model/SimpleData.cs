@@ -7,8 +7,9 @@ using Task2.Enums;
 
 namespace Task2.Model
 {
-    public class LengthValueData
+    public class SimpleData
     {
+        public string Name { get; set; }
         public LengthType LType { get; set; }
         public int LengthAmount { get; set; }
         public string ValueHex { get; set; }

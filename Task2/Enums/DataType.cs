@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Task2.Enums
 {
-    public enum SimpleDataType
+    public enum DataType
     {
+        CREATED = -1,
         UNKNOWN,
         //BOOLEAN = 1,
         INTEGER = 2,
@@ -16,6 +17,7 @@ namespace Task2.Enums
         NULL = 5,
         //DISPLAY_STRING,
         OBJECT_IDENTIFIER = 6,
+        SEQUENCE = 16
 
     }
 }

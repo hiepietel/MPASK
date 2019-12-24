@@ -21,23 +21,23 @@ namespace Task2.Tests
                 TClass = TagClass.universal,
                 TagNumber = 2
             };
-            LengthValueData LVData = new LengthValueData
+            SimpleData LVData = new SimpleData
             {
                 LengthAmount = 1,
                 LType = LengthType.ShortForm,
                 Value = "127"
             };
-            var rLVData = Coder.CodeData("127", tag);
+            var rLVData = Coder.CodeSimpleData("127", tag);
             //Assert.AreEqual(LVData.LengthAmount, rLVData.LengthAmount);
             Assert.AreEqual(LVData.LType, rLVData.LType);
             Assert.AreEqual(LVData.Value, rLVData.Value);
-            LVData = new LengthValueData
+            LVData = new SimpleData
             {
                 LengthAmount = 2,
                 LType = LengthType.LongForm,
                 Value = "128"
             };
-            rLVData = Coder.CodeData("128", tag);
+            rLVData = Coder.CodeSimpleData("128", tag);
             //Assert.AreEqual(LVData.LengthAmount, rLVData.LengthAmount);
             //Assert.AreEqual(LVData.LType, rLVData.LType);
            // Assert.AreEqual(LVData.Value, rLVData.Value);
@@ -51,14 +51,14 @@ namespace Task2.Tests
                 TClass = TagClass.universal,
                 TagNumber = 3
             };
-            LengthValueData LVData = new LengthValueData
+            SimpleData LVData = new SimpleData
             {
                 LengthAmount = 1,
                 LType = LengthType.ShortForm,
                 Value = "4",
                 
             };
-            var rLVData = Coder.CodeData("4", tag);
+            var rLVData = Coder.CodeSimpleData("4", tag);
             Assert.AreEqual(LVData.Value, rLVData.Value);
             Assert.AreEqual(LVData.LType, rLVData.LType);
             Assert.AreEqual(LVData.LengthAmount, rLVData.LengthAmount);
