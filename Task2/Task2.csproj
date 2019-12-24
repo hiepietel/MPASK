@@ -43,16 +43,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Coder.cs" />
+    <Compile Include="Method\Coder.cs" />
     <Compile Include="Enums\LengthType.cs" />
     <Compile Include="Enums\DataType.cs" />
     <Compile Include="Method\ConverterToEnum.cs" />
     <Compile Include="Enums\TagClass.cs" />
     <Compile Include="Enums\TagPC.cs" />
-    <Compile Include="Model\BER.cs" />
     <Compile Include="Model\ConstructedDataSchema.cs" />
     <Compile Include="Model\ConstructedData.cs" />
-    <Compile Include="Model\Content.cs" />
     <Compile Include="Model\SimpleData.cs" />
     <Compile Include="Model\Tag.cs" />
     <Compile Include="Program.cs" />
@@ -69,9 +67,6 @@
       <Project>{7108e7f2-ac68-4a1c-840c-3afa1bca9718}</Project>
       <Name>Task1</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Orders\Orders.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

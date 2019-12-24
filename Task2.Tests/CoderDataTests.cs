@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Task2.Enums;
+using Task2.Method;
 using Task2.Model;
 
 namespace Task2.Tests

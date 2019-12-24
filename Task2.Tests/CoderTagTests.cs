@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Task2.Enums;
+using Task2.Method;
 using Task2.Model;
 
 namespace Task2.Tests

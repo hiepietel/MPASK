@@ -7,7 +7,7 @@ using Task2.Method;
 using Task2.Enums;
 using Task2.Model;
 
-namespace Task2
+namespace Task2.Method
 {
     public static class Coder
     {
