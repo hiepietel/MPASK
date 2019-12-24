@@ -15,7 +15,7 @@ namespace Task2.Method
             {
                 case "INTEGER":
                     return SimpleDataType.INTEGER;
-                case "BIT_STRING":
+                case "BIT STRING":
                     return SimpleDataType.BIT_STRING;
                 case "OCTET STRING":
                     return SimpleDataType.OCTET_STRING;

@@ -17,8 +17,12 @@ namespace Task2
             //mibreader.Import();
             //mibreader.leafs.PrintTree(mibreader.leafs);
             //Console.ReadKey();
-            Tag tag = Coder.CodeTag("INTEGER");
-            Coder.CodeData("127", tag);
+
+            Tag tag = Coder.CodeTag("BIT STRING");
+            string bitstring = "0";
+            //byte bitsstring = 0x10;
+            byte[] a = { 0x20, 0xcf, 0xff, 0xaf, 0xdd };
+            Coder.CodeData(bitstring, tag);
         }
     }
 }

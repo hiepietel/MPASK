@@ -51,7 +51,7 @@
     <Compile Include="Enums\TagPC.cs" />
     <Compile Include="Model\BER.cs" />
     <Compile Include="Model\Content.cs" />
-    <Compile Include="Model\LengthData.cs" />
+    <Compile Include="Model\LengthValueData.cs" />
     <Compile Include="Model\Tag.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
