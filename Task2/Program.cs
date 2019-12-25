@@ -10,6 +10,7 @@ using Task2.Model;
 
 namespace Task2
 {
+
     class Program
     {
         static void Main(string[] args)
@@ -20,6 +21,11 @@ namespace Task2
             //mibreader.leafs.PrintTree(mibreader.leafs);
             //Console.ReadKey();
             LeafNode treeNode = mibreader.leafs.SearchNode("ifNumber", mibreader.leafs);
+
+            BERCoder ber = new BERCoder();
+            ber.CreateSchema("MySequence", "SEQUENCE", "age:INTEGER,name:BIT STRING");
+            ber.Code("age", "INTEGER", "45");
+            ber.Code("seq", "MySequence", "50,\"bob\"");
 
 
             Tag tag = Coder.CodeTag("BIT STRING");

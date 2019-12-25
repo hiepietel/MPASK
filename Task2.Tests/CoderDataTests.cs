@@ -14,7 +14,7 @@ namespace Task2.Tests
     public class CoderDataTests
     {
         [TestMethod]
-        public void AssignDataTest()
+        public void AssignIntegerTest()
         {
             Tag tag = new Tag()
             {

@@ -12,6 +12,6 @@ namespace Task2.Model
         public string Name { get; set; }
         public DataType ConDataType { get; set; }
 
-        public List<object> Objects { get; set; }
+        public List<SimpleData> Objects { get; set; }
     }
 }

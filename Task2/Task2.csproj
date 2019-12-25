@@ -43,9 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Method\BERCoder.cs" />
     <Compile Include="Method\Coder.cs" />
     <Compile Include="Enums\LengthType.cs" />
     <Compile Include="Enums\DataType.cs" />
+    <Compile Include="Method\ConsoleInfo.cs" />
     <Compile Include="Method\ConverterToEnum.cs" />
     <Compile Include="Enums\TagClass.cs" />
     <Compile Include="Enums\TagPC.cs" />

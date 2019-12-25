@@ -16,17 +16,26 @@ namespace Task2.Method
         {
 
             var simpleDataType = ConverterToEnum.ToSimpleDatatype(type);
-            if(simpleDataType != DataType.UNKNOWN)
+            if (simpleDataType != DataType.UNKNOWN)
             {
                 Tag tag = new Tag()
                 {
-                    TPC = TagPC.Primitive,
-                    TClass =TagClass.universal,
-                    TagNumber = (int)simpleDataType
+                    TagNumber = (int)simpleDataType,
+                    TClass = TagClass.universal
                 };
+                if (tag.TagNumber < 6)
+                {
+                    tag.TPC = TagPC.Primitive;
+
+                }
+                else
+                {
+                    tag.TPC = TagPC.Constructed;
+                }
+                
                 return tag;
             }
-            return null;
+            return new Tag() { TPC = TagPC.Constructed };
         }
         public static ConstructedData CodeConstructedData(ConstructedDataSchema constructedDataSchema, List<string> data)
         {
@@ -62,7 +71,7 @@ namespace Task2.Method
                         int length = hexValue.Length;
                         LData.LengthAmount = length;
                         LData.ValueHex = hexValue;
-                        LData.LType = length < 2 ? LengthType.ShortForm : LengthType.ShortForm;
+                        //LData.LType = hexValue < Convert.ToString(128, 16) ? LengthType.ShortForm : LengthType.ShortForm;
                     }
                     catch
                     {
