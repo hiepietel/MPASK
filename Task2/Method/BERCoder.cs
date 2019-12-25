@@ -14,14 +14,17 @@ namespace Task2.Method
         List<ConstructedDataSchema> ConstructedDataSchemas = new List<ConstructedDataSchema>();
         
         
-        public void Code(string name, string type, string value)
+        public void Code(string name, string type, string value="")
         {   
             Tag tag = Coder.CodeTag(type);
             
             if(tag.TPC == TagPC.Primitive)
             {
                 SimpleData simpleData = Coder.CodeSimpleData(value, tag);
+
+                
                 ConsoleInfo.CreatedData(name, tag, simpleData);
+                Console.WriteLine("HEX: "+ ConverterToHex.SimpleDataHex(tag, simpleData));
                 SimpleDataTypes.Add(name, simpleData);
             }
             else if(tag.TPC == TagPC.Constructed)
@@ -29,8 +32,7 @@ namespace Task2.Method
                 ConstructedDataSchema schema = ConstructedDataSchemas.Find(x => x.Name == type);
                 List<string> list = value.Split(',').ToList<string>();
 
-                ConstructedData constructedData = Coder.CodeConstructedData(schema, list);
-                
+                ConstructedData constructedData = Coder.CodeConstructedData(schema, list);       
             }
         }
         public void CreateSchema(string name, string type, string datas)

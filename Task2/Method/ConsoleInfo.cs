@@ -31,8 +31,9 @@ namespace Task2.Method
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.Write(tag.TagNumber);
             Console.ForegroundColor = ConsoleColor.White;
-            Console.Write(" ::= "+simpleData.Value);
+            Console.WriteLine(" ::= "+simpleData.Value);
             Console.ForegroundColor = ConsoleColor.White;
+            
         }
     }
 }

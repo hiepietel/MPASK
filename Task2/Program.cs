@@ -24,8 +24,11 @@ namespace Task2
 
             BERCoder ber = new BERCoder();
             ber.CreateSchema("MySequence", "SEQUENCE", "age:INTEGER,name:BIT STRING");
-            ber.Code("age", "INTEGER", "45");
-            ber.Code("seq", "MySequence", "50,\"bob\"");
+            //ber.Code("age", "INTEGER", "45");
+            //ber.Code("var127", "INTEGER", "127");
+            //ber.Code("var128", "INTEGER", "128");
+            //ber.Code("null", "NULL");
+            ber.Code("seq", "MySequence", "50,I");
 
 
             Tag tag = Coder.CodeTag("BIT STRING");

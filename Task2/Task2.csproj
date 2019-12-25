@@ -51,6 +51,7 @@
     <Compile Include="Method\ConverterToEnum.cs" />
     <Compile Include="Enums\TagClass.cs" />
     <Compile Include="Enums\TagPC.cs" />
+    <Compile Include="Method\ConverterToHex.cs" />
     <Compile Include="Model\ConstructedDataSchema.cs" />
     <Compile Include="Model\ConstructedData.cs" />
     <Compile Include="Model\SimpleData.cs" />

@@ -68,10 +68,11 @@ namespace Task2.Method
                     {
                         int newValue = Convert.ToInt32(value);
                         hexValue = Convert.ToString(newValue, 16);
+                        hexValue = newValue < 128 ? hexValue : "00" + hexValue;
                         int length = hexValue.Length;
-                        LData.LengthAmount = length;
+                        LData.LengthAmount = length/2;
                         LData.ValueHex = hexValue;
-                        //LData.LType = hexValue < Convert.ToString(128, 16) ? LengthType.ShortForm : LengthType.ShortForm;
+                        LData.LType = newValue < 128 ? LengthType.ShortForm : LengthType.ShortForm;
                     }
                     catch
                     {
@@ -90,6 +91,7 @@ namespace Task2.Method
                         int length = hexValue.Length;
                         LData.LengthAmount = length;
                         LData.ValueHex = hexValue;
+                        LData.LType = LengthType.LongForm;
                         //hexValue = Convert.ToString(bytes);
                         //string strValue = Encoding.ASCII.GetString(value);
 
@@ -106,6 +108,7 @@ namespace Task2.Method
                         int length = hexValue.Length;
                         LData.LengthAmount = length;
                         LData.ValueHex = hexValue;
+                        LData.LType = LengthType.ShortForm;
                     }
                     catch
                     {
@@ -125,6 +128,7 @@ namespace Task2.Method
                             LData.LengthAmount = length;
                             LData.ValueHex = hexValue;
                             LData.LType = length < 2 ? LengthType.ShortForm : LengthType.ShortForm;
+                            LData.LType = LengthType.ShortForm;
                         }
                     }
                     catch
