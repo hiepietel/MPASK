@@ -79,6 +79,21 @@ namespace Task2.Tests
             Assert.AreEqual(tag.TPC, codedTag.TPC);
             Assert.AreEqual(tag.TagNumber, codedTag.TagNumber);
         }
+        [TestMethod]
+        public void AssignSequenceTagTest()
+        {
+
+            Tag tag = new Tag()
+            {
+                TPC = TagPC.Constructed,
+                TClass = TagClass.universal,
+                TagNumber = 16
+            };
+            Tag codedTag = Coder.CodeTag("SEQUENCE");
+            Assert.AreEqual(tag.TClass, codedTag.TClass);
+            Assert.AreEqual(tag.TPC, codedTag.TPC);
+            Assert.AreEqual(tag.TagNumber, codedTag.TagNumber);
+        }
 
     }
 }
