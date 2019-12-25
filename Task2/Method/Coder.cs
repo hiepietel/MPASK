@@ -43,10 +43,10 @@ namespace Task2.Method
 
             foreach(KeyValuePair<string, string> keyValuePair in constructedDataSchema.Objects)
             {
-                Tag tag = CodeTag(keyValuePair.Key);
+                Tag tag = CodeTag(keyValuePair.Value);
                 SimpleData simpleData = CodeSimpleData(data.First(), tag);
                 data.RemoveAt(0);
-                constructedData.Objects.Add(simpleData);
+                constructedData.Objects.Add(tag, simpleData);
             }
             return constructedData;
         }

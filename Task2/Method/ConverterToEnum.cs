@@ -23,6 +23,8 @@ namespace Task2.Method
                     return DataType.NULL;
                 case "OBJECT IDENTIFIER":
                     return DataType.OBJECT_IDENTIFIER;
+                case "SEQUENCE":
+                    return DataType.SEQUENCE;
                 default:
                     return DataType.UNKNOWN;
             }

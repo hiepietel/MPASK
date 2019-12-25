@@ -12,34 +12,42 @@ namespace Task2.Method
     {
         Dictionary<string, SimpleData> SimpleDataTypes = new Dictionary<string, SimpleData>();
         List<ConstructedDataSchema> ConstructedDataSchemas = new List<ConstructedDataSchema>();
-        
-        
-        public void Code(string name, string type, string value="")
-        {   
+
+
+        public void Code(string name, string type, string value = "")
+        {
+
             Tag tag = Coder.CodeTag(type);
-            
-            if(tag.TPC == TagPC.Primitive)
+            if(tag.TagNumber == (int)DataType.UNKNOWN)
+            {
+                ConstructedDataSchema schema = ConstructedDataSchemas.Find(x => x.Name == type);
+                tag = Coder.CodeTag(schema.DataType);
+            }            
+
+            if (tag.TPC == TagPC.Primitive)
             {
                 SimpleData simpleData = Coder.CodeSimpleData(value, tag);
 
-                
+
                 ConsoleInfo.CreatedData(name, tag, simpleData);
-                Console.WriteLine("HEX: "+ ConverterToHex.SimpleDataHex(tag, simpleData));
+                Console.WriteLine("HEX: " + ConverterToHex.SimpleDataHex(tag, simpleData));
                 SimpleDataTypes.Add(name, simpleData);
             }
-            else if(tag.TPC == TagPC.Constructed)
+            else if (tag.TPC == TagPC.Constructed)
             {
                 ConstructedDataSchema schema = ConstructedDataSchemas.Find(x => x.Name == type);
                 List<string> list = value.Split(',').ToList<string>();
 
-                ConstructedData constructedData = Coder.CodeConstructedData(schema, list);       
+                ConstructedData constructedData = Coder.CodeConstructedData(schema, list);
+                ConverterToHex.ConstructedDataHex(tag, constructedData);
+
             }
         }
         public void CreateSchema(string name, string type, string datas)
         {
             Dictionary<string, string> dataDic = new Dictionary<string, string>();
             string[] dataTable = datas.Split(',');
-            foreach(string data in dataTable)
+            foreach (string data in dataTable)
             {
                 string[] toAdd = data.Split(':');
                 dataDic.Add(toAdd[0], toAdd[1]);

@@ -56,5 +56,19 @@ namespace Task2.Method
             
             return hexStr;
         }
+        public static string ConstructedDataHex(Tag tag, ConstructedData constructedData)
+        {
+            string hexStr = TagHex(tag);
+            string dataHex = "";
+            foreach(var obj in constructedData.Objects)
+            {
+                dataHex += SimpleDataHex(obj.Key, obj.Value);
+            }
+            int length = dataHex.Length / 2;
+            hexStr += length.IntToHex(2);
+            
+            return hexStr+dataHex;
+        }
+        
     }
 }
