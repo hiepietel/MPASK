@@ -16,13 +16,16 @@ namespace Task2
         static void Main(string[] args)
         {
             //Reader.Read();
-            MIBreader mibreader = new MIBreader();
-            mibreader.Import();
+            //MIBreader mibreader = new MIBreader();
+            //mibreader.Import();
             //mibreader.leafs.PrintTree(mibreader.leafs);
             //Console.ReadKey();
-            LeafNode treeNode = mibreader.leafs.SearchNode("ifNumber", mibreader.leafs);
+            //LeafNode treeNode = mibreader.leafs.SearchNode("sysServices", mibreader.leafs);
 
             BERCoder ber = new BERCoder();
+            ber.CodeViaOID("sys", "123");
+            
+            
             ber.CreateSchema("TwoInt", "SEQUENCE", "age:INTEGER");
             //ber.CreateSchema("MySequence", "SEQUENCE", "age:INTEGER,name:BIT STRING");
             //ber.Code("age", "INTEGER", "45");

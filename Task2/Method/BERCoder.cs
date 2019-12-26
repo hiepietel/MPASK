@@ -12,8 +12,24 @@ namespace Task2.Method
     {
         Dictionary<string, SimpleData> SimpleDataTypes = new Dictionary<string, SimpleData>();
         List<ConstructedDataSchema> ConstructedDataSchemas = new List<ConstructedDataSchema>();
+        LeafNode MasterNode;
+        
+        public BERCoder()
+        {
+            Task1.MIBreader MibReader = new Task1.MIBreader();
+            MibReader.Import();
+            MasterNode = MibReader.leafs;
+        }
 
-
+        public void CodeViaOID(string oid, string value)
+        {
+            LeafNode treeNode = MasterNode.SearchNode("sysServices", MasterNode);
+            string type = treeNode.LeafData.ClassicDataType.ToString();
+            //validate
+                
+            //
+            Code(oid, type, value);
+        }
         public void Code(string name, string type, string value = "")
         {
 

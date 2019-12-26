@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Task2.Enums;
 using Task2.Model;
 
 namespace Task2.Method
@@ -29,11 +30,12 @@ namespace Task2.Method
         {
             Console.Write(name + " ");
             Console.ForegroundColor = ConsoleColor.Blue;
-            Console.Write(tag.TagNumber);
+            Console.Write((DataType)tag.TagNumber);
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(" ::= "+simpleData.Value);
             Console.ForegroundColor = ConsoleColor.White;
             
         }
+        //TODO - ConstructedData
     }
 }
