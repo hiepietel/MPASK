@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Task1.Method;
 using Task1.Model;
 using Task1.Rgx;
+using Model;
 
 namespace Task1.Parser
 {

@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Task1.Enums
+namespace Task2.Model
 {
-    public enum VISIBILITY
+    public class MIBDataType
     {
-        UNKNOWN, IMPLICIT, EXPLICIT
+
     }
 }

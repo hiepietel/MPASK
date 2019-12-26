@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Task2.Model;
 using Task2.Enums;
+using Model;
 
 namespace Task2.Method
 {
@@ -13,7 +14,7 @@ namespace Task2.Method
         Dictionary<string, SimpleData> SimpleDataTypes = new Dictionary<string, SimpleData>();
         List<ConstructedDataSchema> ConstructedDataSchemas = new List<ConstructedDataSchema>();
         LeafNode MasterNode;
-        
+        Dictionary<string, Restricion> Restricions;
         public BERCoder()
         {
             Task1.MIBreader MibReader = new Task1.MIBreader();
@@ -23,10 +24,15 @@ namespace Task2.Method
 
         public void CodeViaOID(string oid, string value)
         {
-            LeafNode treeNode = MasterNode.SearchNode("sysServices", MasterNode);
+            //sysDescr
+            LeafNode treeNode = MasterNode.SearchNode("sysDescr", MasterNode);
             string type = treeNode.LeafData.ClassicDataType.ToString();
             //validate
-                
+            var restricion = treeNode.LeafData.DTRestricion;
+            if(restricion != null)
+            {
+                Validator.Validate(restricion, type, value);
+            }
             //
             Code(oid, type, value);
         }

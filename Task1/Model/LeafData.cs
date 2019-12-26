@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Task1.Enums;
+using Model;
 
 namespace Task1.Model
 {

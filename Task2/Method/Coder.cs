@@ -23,7 +23,7 @@ namespace Task2.Method
                     TagNumber = (int)simpleDataType,
                     TClass = TagClass.universal
                 };
-                if (tag.TagNumber < 6)
+                if (tag.TagNumber < 10)
                 {
                     tag.TPC = TagPC.Primitive;
 
@@ -49,11 +49,6 @@ namespace Task2.Method
                 constructedData.Objects.Add(tag, simpleData);
             }
             return constructedData;
-        }
-        public static SimpleData CodeViaOID(string value, Tag tag, LeafNode leafNode)
-        {
-
-            return null;
         }
         public static SimpleData CodeSimpleData(string value, Tag tag)
         {
@@ -134,6 +129,36 @@ namespace Task2.Method
                     catch
                     {
 
+
+                    }
+                    break;
+                case (int)DataType.OBJECT_IDENTIFIER:
+                    try
+                    {
+                        string[] data = value.Split('.');
+                        if(data.Length > 1)
+                        {
+                            string first = Convert.ToString(int.Parse(data[0]) * 40 + int.Parse(data[1]), 16);
+                            hexValue += first;
+                            List<string> listData = data.ToList();
+                            listData.RemoveAt(0);
+                            listData.RemoveAt(0);
+                            if(listData.Count > 0)
+                            {
+                                foreach(string single in listData)
+                                {
+                                    int singleInt = int.Parse(single);
+                                    hexValue += singleInt.IntToHex(2);
+                                }
+                            }
+                            int length = hexValue.Length / 2;
+                            LData.LengthAmount = length;
+                            LData.ValueHex = hexValue;
+                            LData.LType = length < 2 ? LengthType.ShortForm : LengthType.ShortForm;
+                        }
+                    }
+                    catch
+                    {
 
                     }
                     break;

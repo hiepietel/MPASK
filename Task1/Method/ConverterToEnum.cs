@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Task1.Enums;
+using Enums;
+using Type = Enums.Type;
 
 namespace Task1.Method
 {
@@ -41,26 +43,26 @@ namespace Task1.Method
                     return ACCESS.unknown;
             }
         }
-        public static VISIBILITY ToVisibility(string str)
+        public static Visibility ToVisibility(string str)
         {
             switch (str)
             {
                 case "IMPLICIT":
-                    return VISIBILITY.IMPLICIT;
+                    return Visibility.IMPLICIT;
                 case "EXPLICIT":
-                    return VISIBILITY.EXPLICIT;
+                    return Visibility.EXPLICIT;
                 default:
-                    return VISIBILITY.UNKNOWN;
+                    return Visibility.UNKNOWN;
             }
         }
-        public static TYPE ToType(string str)
+        public static Type ToType(string str)
         {
             switch (str)
             {
                 case "APPLICATION":
-                    return TYPE.APPLICATION;
+                    return Type.APPLICATION;
                 default:
-                    return TYPE.UNKNOWN;
+                    return Type.UNKNOWN;
             }
         }
         public static DATATYPE ToDatatype(string str)

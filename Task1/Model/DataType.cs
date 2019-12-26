@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Task1.Enums;
+using Enums;
+using Type = Enums.Type;
 
 namespace Task1.Model
 {
@@ -17,12 +19,12 @@ namespace Task1.Model
         /// <summary>
         /// e.g APPLICATION
         /// </summary>
-        public TYPE Type { get; set; }
+        public Type Type { get; set; }
         public int TypeIndex { get; set; }
         /// <summary>
         /// IMPLICIT
         /// </summary>
-        public VISIBILITY Visibility { get; set; }
+        public Visibility Visibility { get; set; }
         /// <summary>
         /// INTEGER
         /// </summary>

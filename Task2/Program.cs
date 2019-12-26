@@ -21,17 +21,18 @@ namespace Task2
             //mibreader.leafs.PrintTree(mibreader.leafs);
             //Console.ReadKey();
             //LeafNode treeNode = mibreader.leafs.SearchNode("sysServices", mibreader.leafs);
-
+            
             BERCoder ber = new BERCoder();
+            
+            ber.Code("var127", "OBJECT_IDENTIFIER", "1.3.6.4.1");
             ber.CodeViaOID("sys", "123");
-            
-            
+
             ber.CreateSchema("TwoInt", "SEQUENCE", "age:INTEGER");
-            //ber.CreateSchema("MySequence", "SEQUENCE", "age:INTEGER,name:BIT STRING");
-            //ber.Code("age", "INTEGER", "45");
-            //ber.Code("var127", "INTEGER", "127");
-            //ber.Code("var128", "INTEGER", "128");
-            //ber.Code("null", "NULL");
+            ber.CreateSchema("MySequence", "SEQUENCE", "age:INTEGER,name:BIT STRING");
+            ber.Code("age", "INTEGER", "45");
+            ber.Code("var127", "INTEGER", "127");
+            ber.Code("var128", "INTEGER", "128");
+            ber.Code("null", "NULL");
             ber.Code("seq", "TwoInt", "127,128");
 
 

@@ -14,14 +14,21 @@ namespace Task2.Method
             switch (str)
             {
                 case "INTEGER":
+                case "Counter":
+                case "Gauge":
                     return DataType.INTEGER;
                 case "BIT STRING":
+                case "BIT_STRING":
                     return DataType.BIT_STRING;
                 case "OCTET STRING":
+                case "OCTET_STRING":
+                case "DisplayString":
+                case "PhysAddress":
                     return DataType.OCTET_STRING;
                 case "NULL":
                     return DataType.NULL;
                 case "OBJECT IDENTIFIER":
+                case "OBJECT_IDENTIFIER":
                     return DataType.OBJECT_IDENTIFIER;
                 case "SEQUENCE":
                     return DataType.SEQUENCE;

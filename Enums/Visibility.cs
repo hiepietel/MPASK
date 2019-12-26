@@ -4,10 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Task1.Enums
+namespace Enums
 {
-    public enum TYPE
+    public enum Visibility
     {
-        UNKNOWN, UNIVERSAL, APPLICATION, CONTEXT_SPECIFIC, PRIVATE
+        UNKNOWN=0, 
+        IMPLICIT=1, 
+        EXPLICIT=2
     }
 }
+

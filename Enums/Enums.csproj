@@ -4,17 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{76B45A37-14DF-437D-BCE6-6798DBFDCFC8}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>Task2</RootNamespace>
-    <AssemblyName>Task2</AssemblyName>
+    <ProjectGuid>{CB4653B9-44C3-4F96-905F-A64B2211B46C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Enums</RootNamespace>
+    <AssemblyName>Enums</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +23,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -43,39 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Method\BERCoder.cs" />
-    <Compile Include="Method\Coder.cs" />
-    <Compile Include="Enums\LengthType.cs" />
-    <Compile Include="Enums\DataType.cs" />
-    <Compile Include="Method\ConsoleInfo.cs" />
-    <Compile Include="Method\ConverterToEnum.cs" />
-    <Compile Include="Enums\TagClass.cs" />
-    <Compile Include="Enums\TagPC.cs" />
-    <Compile Include="Method\ConverterToHex.cs" />
-    <Compile Include="Method\Validator.cs" />
-    <Compile Include="Model\ConstructedDataSchema.cs" />
-    <Compile Include="Model\ConstructedData.cs" />
-    <Compile Include="Model\MIBDataType.cs" />
-    <Compile Include="Model\SimpleData.cs" />
-    <Compile Include="Model\Tag.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Type.cs" />
+    <Compile Include="Visibility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Rgx\RegexString.cs" />
-    <Compile Include="Rgx\RgxComp.cs" />
-    <Compile Include="Rgx\RgxGroup.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Model\Model.csproj">
-      <Project>{ed78511d-ad46-4765-a9c4-cce0839f241d}</Project>
-      <Name>Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Task1\Task1.csproj">
-      <Project>{7108e7f2-ac68-4a1c-840c-3afa1bca9718}</Project>
-      <Name>Task1</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
