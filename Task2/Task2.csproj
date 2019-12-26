@@ -68,6 +68,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Enums\Enums.csproj">
+      <Project>{cb4653b9-44c3-4f96-905f-a64b2211b46c}</Project>
+      <Name>Enums</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{ed78511d-ad46-4765-a9c4-cce0839f241d}</Project>
       <Name>Model</Name>

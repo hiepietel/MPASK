@@ -24,8 +24,9 @@ namespace Task2
             
             BERCoder ber = new BERCoder();
             
-            ber.Code("var127", "OBJECT_IDENTIFIER", "1.3.6.4.1");
-            ber.CodeViaOID("sys", "123");
+            //ber.Code("var127", "OBJECT_IDENTIFIER", "1.3.6.4.1");
+            //ber.CodeViaOID("1.3.6.1.2.1.1.7", "123");
+            ber.CodeViaOID("1.3.6.1.2.1.2.2.1.10", "123");
 
             ber.CreateSchema("TwoInt", "SEQUENCE", "age:INTEGER");
             ber.CreateSchema("MySequence", "SEQUENCE", "age:INTEGER,name:BIT STRING");

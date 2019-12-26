@@ -40,5 +40,15 @@ namespace Task2.Method
 
             return false;
         }
+        public static bool IsOID(this string oid)
+        {
+            int empty =0;
+            string[] datas = oid.Split('.');
+            foreach(string data in datas)
+            {
+                if (!int.TryParse(data, out empty)) return false;
+            }
+            return true;
+        }
     }
 }

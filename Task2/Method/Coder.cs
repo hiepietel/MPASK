@@ -11,7 +11,13 @@ namespace Task2.Method
 {
     public static class Coder
     {
-
+        public static Tag CodeTagFromDic(string type, Dictionary<string, MIBDataType> datas)
+        {
+            KeyValuePair<string, MIBDataType> keyValuePair = datas.FirstOrDefault(t => t.Key.ToLower() == type.ToLower());
+            MIBDataType datatype = keyValuePair;
+            var simpleDataType = ConverterToEnum.ToSimpleDatatype(type);
+            return new Tag();
+        }
         public static Tag CodeTag(string type)
         {
 

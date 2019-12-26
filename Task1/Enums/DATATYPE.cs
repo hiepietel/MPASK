@@ -22,7 +22,10 @@ namespace Task1.Enums
         ENUMERATED = 10, 
         EMBEDDED_PDV = 11,
         UTF8String = 12,
-        
+        //Added to task2
+        IPADDRESS = 32,
+        COUNTER = 33,
+        GAUGE = 34,
         PHYSADDRESS, 
         NETWORKADDRESS
 

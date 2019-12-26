@@ -81,6 +81,12 @@ namespace Task1.Method
                     return DATATYPE.DISPLAY_STRING;                
                 case "NetworkAddress":
                     return DATATYPE.DISPLAY_STRING;
+                case "IpAddress":
+                    return DATATYPE.IPADDRESS;
+                case "Counter":
+                    return DATATYPE.COUNTER;
+                case "Gauge":
+                    return DATATYPE.GAUGE;
                 default:
                     return DATATYPE.UNKNOWN;
             }
