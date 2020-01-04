@@ -18,24 +18,24 @@ namespace Task2.Method
             Console.Write(constructedDataSchema.DataType);
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(" {");
-            foreach(KeyValuePair<string, string> obj in constructedDataSchema.Objects)
+            foreach (KeyValuePair<string, string> obj in constructedDataSchema.Objects)
             {
-                Console.Write("     "+obj.Key + " ");
+                Console.Write("     " + obj.Key + " ");
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine(obj.Value);
                 Console.ForegroundColor = ConsoleColor.White;
             }
             Console.WriteLine("}");
         }
-        public static void CreatedData(string name,Tag tag, SimpleData simpleData)
+        public static void CreatedData(string name, Tag tag, SimpleData simpleData)
         {
             Console.Write(name + " ");
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.Write((DataType)tag.TagNumber);
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine(" ::= "+simpleData.Value);
+            Console.WriteLine(" ::= " + simpleData.Value);
             Console.ForegroundColor = ConsoleColor.White;
-            
+
         }
         public static void RestrictionsFailed(Restricion restricion, string type, string value, string oid)
         {
@@ -45,13 +45,23 @@ namespace Task2.Method
             Console.Error.WriteLine("Cannot assign value: " + value + " for oid: " + oid);
             if (restricion.HasSize)
             {
-                Console.Error.WriteLine("Enabled: " + type + " + SIZE(" + restricion.Min.ToString() + ".." + restricion.Max.ToString() + ")");
+
+                Console.Error.Write("Enabled: ");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write(type);
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine(" SIZE(" + restricion.Min.ToString() + ".." + restricion.Max.ToString() + ")");
             }
             else
             {
-                Console.Error.WriteLine("Enabled: " + type + " + (" + restricion.Min.ToString() + ".." + restricion.Max.ToString() + ")");
+                Console.Error.Write("Enabled: ");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write(type);
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine(" (" + restricion.Min.ToString() + ".." + restricion.Max.ToString() + ")");
             }
         }
+
         //TODO - ConstructedData
 
     }
