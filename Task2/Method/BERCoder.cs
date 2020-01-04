@@ -37,7 +37,7 @@ namespace Task2.Method
         }
         public void CodeViaOID(string oid, string value)
         {
-            //sysDescr
+            //sysDescr22
             LeafNode treeNode = MasterNode.SearchByOID(oid, MasterNode);
             string type = treeNode.LeafData.ClassicDataType.ToString();
             //string originalType = treeNode.LeafData.
@@ -45,10 +45,20 @@ namespace Task2.Method
             var restricion = treeNode.LeafData.DTRestricion;
             if(restricion != null)
             {
-                Validator.Validate(restricion, type, value);
+                if(Validator.Validate(restricion, type, value))
+                {
+                    Code(oid, type, value);
+                }
+                else
+                {
+                    ConsoleInfo.RestrictionsFailed(restricion, type, value, oid);
+                }
+            }
+            else
+            {
+                Code(oid, type, value);
             }
             
-            Code(oid, type, value);
         }
         public void Code(string name, string type, string value = "")
         {

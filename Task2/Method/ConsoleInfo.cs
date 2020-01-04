@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -36,6 +37,22 @@ namespace Task2.Method
             Console.ForegroundColor = ConsoleColor.White;
             
         }
+        public static void RestrictionsFailed(Restricion restricion, string type, string value, string oid)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("ERROR!");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Error.WriteLine("Cannot assign value: " + value + " for oid: " + oid);
+            if (restricion.HasSize)
+            {
+                Console.Error.WriteLine("Enabled: " + type + " + SIZE(" + restricion.Min.ToString() + ".." + restricion.Max.ToString() + ")");
+            }
+            else
+            {
+                Console.Error.WriteLine("Enabled: " + type + " + (" + restricion.Min.ToString() + ".." + restricion.Max.ToString() + ")");
+            }
+        }
         //TODO - ConstructedData
+
     }
 }
