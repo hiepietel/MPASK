@@ -15,7 +15,7 @@ namespace Task2.Method
         public static void HexValue(string hex)
         {
             Console.Write("HEX: ");
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine(hex);
             Console.ForegroundColor = ConsoleColor.White;
         }
@@ -29,7 +29,7 @@ namespace Task2.Method
             foreach (KeyValuePair<string, string> obj in constructedDataSchema.Objects)
             {
                 Console.Write("     " + obj.Key + " ");
-                Console.ForegroundColor = ConsoleColor.Green;
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
                 Console.WriteLine(obj.Value);
                 Console.ForegroundColor = ConsoleColor.White;
             }
@@ -42,7 +42,7 @@ namespace Task2.Method
             Console.Write((DataType)tag.TagNumber);
             Console.ForegroundColor = ConsoleColor.White;
             if (tag.TVisibility != Visibility.UNKNOWN)
-                Console.WriteLine(" [APPLICATION "+tag.TagNumber.ToString() + "] " + tag.TVisibility.ToString() + " ::=  " + simpleData.Value);
+                Console.WriteLine(" [APPLICATION "+tag.TagNumber.ToString() + "] " + tag.TVisibility.ToString() + " ::= " + simpleData.Value);
             else
             {
                 Console.WriteLine(" ::= " + simpleData.Value);
@@ -97,8 +97,5 @@ namespace Task2.Method
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("Visibility {0} is not allowed", visibility);
         }
-
-        //TODO - ConstructedData
-
     }
 }
