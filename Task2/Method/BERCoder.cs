@@ -39,7 +39,18 @@ namespace Task2.Method
         {
             //sysDescr22
             LeafNode treeNode = MasterNode.SearchByOID(oid, MasterNode);
-            string type = treeNode.LeafData.ClassicDataType.ToString();
+            bool isDataType = treeNode.LeafData.ClassicDataType != null ? true : false;
+            string type = "";
+            if (isDataType)
+            {
+                type = treeNode.LeafData.ClassicDataType.ToString();
+            }
+            else 
+            {
+                type = treeNode.LeafData.SequenceObjectType.Name;
+
+            }
+            
             //string originalType = treeNode.LeafData.
             //validate
             var restricion = treeNode.LeafData.DTRestricion;

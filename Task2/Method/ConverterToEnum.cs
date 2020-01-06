@@ -15,7 +15,9 @@ namespace Task2.Method
             {
                 case "INTEGER":
                 case "Counter":
+                case "COUNTER":
                 case "Gauge":
+                case "GAUGE":
                     return DataType.INTEGER;
                 case "BIT STRING":
                 case "BIT_STRING":
