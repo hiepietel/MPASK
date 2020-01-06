@@ -71,9 +71,9 @@ namespace Task2.Method
             }
             
         }
-        public void Code(string name, string type, string value = "")
+        public void Code(string name, string type, string value = "", string visibility = "", string tagged = "")
         {
-            Tag tag = Coder.CodeTag(type);
+            Tag tag = Coder.CodeTag(type, visibility, tagged);
             if (name.IsOID())
             {
 
@@ -81,6 +81,7 @@ namespace Task2.Method
             if(tag.TagNumber == (int)DataType.UNKNOWN)
             {
                 ConstructedDataSchema schema = ConstructedDataSchemas.Find(x => x.Name == type);
+                
                 tag = Coder.CodeTag(schema.DataType);
             }            
 
@@ -90,8 +91,16 @@ namespace Task2.Method
 
 
                 ConsoleInfo.CreatedData(name, tag, simpleData);
-                Console.WriteLine("HEX: " + ConverterToHex.SimpleDataHex(tag, simpleData));
-                SimpleDataTypes.Add(name, simpleData);
+                ConsoleInfo.HexValue(ConverterToHex.SimpleDataHex(tag, simpleData));
+                try
+                {
+                    SimpleDataTypes.Add(name, simpleData);
+                }
+                catch(ArgumentException argumentException)
+                {
+                    Console.WriteLine("Varible name allready used");
+                    Console.WriteLine(argumentException);
+                }
             }
             else if (tag.TPC == TagPC.Constructed)
             {
@@ -99,8 +108,8 @@ namespace Task2.Method
                 List<string> list = value.Split(',').ToList<string>();
 
                 ConstructedData constructedData = Coder.CodeConstructedData(schema, list);
-                ConverterToHex.ConstructedDataHex(tag, constructedData);
-
+                ConsoleInfo.CreatedContructedData(name, type, tag, constructedData);
+                ConsoleInfo.HexValue(ConverterToHex.ConstructedDataHex(tag, constructedData));
             }
         }
         public void CreateSchema(string name, string type, string datas)

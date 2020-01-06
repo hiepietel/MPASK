@@ -47,7 +47,8 @@ namespace Task2.Method
             else if (visibility == "")
             {
                 tag.TVisibility = Visibility.UNKNOWN;
-                tag.TClass = TagClass.context_specific;
+                tag.TClass = TagClass.universal;
+                
             }
             else if (visibility != "") ConsoleInfo.IncorrectVisibility(visibility);
             //assing tagged   
@@ -57,6 +58,7 @@ namespace Task2.Method
                 if(int.TryParse(tagged, out TaggedValue)){
                     //TODO visibility
                 }
+                tag.TClass = TagClass.context_specific;
                 tag.TaggedValue = TaggedValue;
             }
             return tag;

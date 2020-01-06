@@ -14,54 +14,42 @@ namespace Task2
     class Program
     {
         static void Main(string[] args)
-        {
-            //Reader.Read();
-            //MIBreader mibreader = new MIBreader();
-            //mibreader.Import();
-            //mibreader.leafs.PrintTree(mibreader.leafs);
-            //Console.ReadKey();
-            //LeafNode treeNode = mibreader.leafs.SearchNode("sysServices", mibreader.leafs);
-            
+        {   
             BERCoder ber = new BERCoder();
-            
+
             //ber.Code("var127", "OBJECT_IDENTIFIER", "1.3.6.4.1");
             //ber.CodeViaOID("1.3.6.1.2.1.2.2.1", "123"); //ifEntry
             //ber.CodeViaOID("1.3.6.1.2.1.1.7", "140");
-            ber.CodeViaOID("1.3.6.1.2.1.2.2.1.10", "123");
-
-            ber.CreateSchema("TwoInt", "SEQUENCE", "age:INTEGER");
-            ber.CreateSchema("MySequence", "SEQUENCE", "age:INTEGER,name:BIT STRING");
-            ber.Code("age", "INTEGER", "45");
+            
+            //code simple datatype
             ber.Code("var127", "INTEGER", "127");
             ber.Code("var128", "INTEGER", "128");
-            ber.Code("null", "NULL");
+            ber.Code("age", "INTEGER", "45");
+            ber.Code("obj_id", "OBJECT_IDENTIFIER", "1.3.6.4.1");
+            ber.Code("var_null", "NULL");
+
+            //create schema
+            ber.CreateSchema("TwoInt", "SEQUENCE", "age:INTEGER");
+            ber.CreateSchema("MySequence", "SEQUENCE", "age:INTEGER,name:BIT STRING");
+
+            //code schema
             ber.Code("seq", "TwoInt", "127,128");
+            ber.Code("seq2", "MySequence", "98,G");
+
+            //code OID
+            ber.CodeViaOID("1.3.6.1.2.1.2.2.1.10", "123");
+            ber.CodeViaOID("1.3.6.1.2.1.1.7", "1");
+            
+            //code with Restricion exception
+            ber.CodeViaOID("1.3.6.1.2.1.1.7", "140");
+
+            //code with visibility
+            ber.Code("B", "INTEGER", "5", "IMPLICIT");
+            ber.Code("C", "INTEGER", "5", "IMPLICIT", "4");
+            ber.Code("D", "INTEGER", "5", "EXPLICIT");
+
+
             Console.ReadKey();
-
-            Tag tag = Coder.CodeTag("BIT STRING");
-            string bitstring = "0";
-            //byte bitsstring = 0x10;
-            byte[] a = { 0x20, 0xcf, 0xff, 0xaf, 0xdd };
-            
-            Coder.CodeSimpleData(bitstring, tag);
-            
-            var dic = new Dictionary<string, string>();
-            dic.Add("INTEGER", "age");
-            dic.Add("BIT STRING", "bit");
-
-            ConstructedDataSchema contructedDataSchema = new ConstructedDataSchema() {
-                DataType = "SEQUENCE",
-                Name = "MySequence",
-                Objects = dic
-            };
-
-            var list = new List<string>();
-            list.Add("50");
-            list.Add("1");
-
-            ConstructedData constructedData = Coder.CodeConstructedData(contructedDataSchema, list);
-
-
         }
     }
 }
