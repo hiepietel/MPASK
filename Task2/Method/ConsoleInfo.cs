@@ -61,7 +61,13 @@ namespace Task2.Method
                 Console.WriteLine(" (" + restricion.Min.ToString() + ".." + restricion.Max.ToString() + ")");
             }
         }
-
+        public static void IncorrectVisibility(string visibility)
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("WARN");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("Visibility {0} is not allowed", visibility);
+        }
         //TODO - ConstructedData
 
     }

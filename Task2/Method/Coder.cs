@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Task2.Method;
 using Task2.Enums;
 using Task2.Model;
-
+using Enums;
 namespace Task2.Method
 {
     public static class Coder
@@ -18,36 +18,54 @@ namespace Task2.Method
         //    var simpleDataType = ConverterToEnum.ToSimpleDatatype(type);
         //    return new Tag();
         //}
-        public static Tag CodeTag(string type)
+        public static Tag CodeTag(string type, string visibility = "", string tagged = "")
         {
-
+            Tag tag = new Tag();
             var simpleDataType = ConverterToEnum.ToSimpleDatatype(type);
             if (simpleDataType != DataType.UNKNOWN)
             {
-                Tag tag = new Tag()
-                {
-                    TagNumber = (int)simpleDataType,
-                    TClass = TagClass.universal
-                };
+                tag.TagNumber = (int)simpleDataType;
+
                 if (tag.TagNumber < 10)
                 {
                     tag.TPC = TagPC.Primitive;
-
                 }
                 else
                 {
                     tag.TPC = TagPC.Constructed;
                 }
-                
-                return tag;
             }
-            return new Tag() { TPC = TagPC.Constructed };
+            //check visibility
+            if (visibility == "IMPLICIT") {
+                tag.TVisibility = Visibility.IMPLICIT;
+                tag.TClass = TagClass.application;
+            }
+            else if (visibility == "EXPLICIT") {
+                tag.TVisibility = Visibility.EXPLICIT;
+                tag.TClass = TagClass.application;
+            }
+            else if (visibility == "")
+            {
+                tag.TVisibility = Visibility.UNKNOWN;
+                tag.TClass = TagClass.context_specific;
+            }
+            else if (visibility != "") ConsoleInfo.IncorrectVisibility(visibility);
+            //assing tagged   
+            if (tagged != "")
+            {
+                int TaggedValue = 0;
+                if(int.TryParse(tagged, out TaggedValue)){
+                    //TODO visibility
+                }
+                tag.TaggedValue = TaggedValue;
+            }
+            return tag;
         }
         public static ConstructedData CodeConstructedData(ConstructedDataSchema constructedDataSchema, List<string> data)
         {
-            ConstructedData constructedData = new ConstructedData() {};
+            ConstructedData constructedData = new ConstructedData() { };
 
-            foreach(KeyValuePair<string, string> keyValuePair in constructedDataSchema.Objects)
+            foreach (KeyValuePair<string, string> keyValuePair in constructedDataSchema.Objects)
             {
                 Tag tag = CodeTag(keyValuePair.Value);
                 SimpleData simpleData = CodeSimpleData(data.First(), tag);
@@ -60,7 +78,7 @@ namespace Task2.Method
         {
             SimpleData LData = new SimpleData() { Value = value };
             string hexValue = "";
-            
+
             var simpleDataType = tag.TagNumber;
             switch (simpleDataType)
             {
@@ -71,7 +89,7 @@ namespace Task2.Method
                         hexValue = Convert.ToString(newValue, 16);
                         hexValue = newValue < 128 ? hexValue : "00" + hexValue;
                         int length = hexValue.Length;
-                        LData.LengthAmount = length/2;
+                        LData.LengthAmount = length / 2;
                         LData.ValueHex = hexValue;
                         LData.LType = newValue < 128 ? LengthType.ShortForm : LengthType.ShortForm;
                     }
@@ -142,16 +160,16 @@ namespace Task2.Method
                     try
                     {
                         string[] data = value.Split('.');
-                        if(data.Length > 1)
+                        if (data.Length > 1)
                         {
                             string first = Convert.ToString(int.Parse(data[0]) * 40 + int.Parse(data[1]), 16);
                             hexValue += first;
                             List<string> listData = data.ToList();
                             listData.RemoveAt(0);
                             listData.RemoveAt(0);
-                            if(listData.Count > 0)
+                            if (listData.Count > 0)
                             {
-                                foreach(string single in listData)
+                                foreach (string single in listData)
                                 {
                                     int singleInt = int.Parse(single);
                                     hexValue += singleInt.IntToHex(2);
