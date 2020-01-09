@@ -11,19 +11,19 @@ public class LeafNode
         Children = new List<LeafNode>();
     }
     public string Name { get; set; }
-    public  int Index { get; set; }
-    #nullable enable
+    public int Index { get; set; }
+#nullable enable
     public LeafData? LeafData { get; set; }
     public List<LeafNode> Children { get; set; }
     public LeafNode? SearchByOID(string OID, LeafNode leafNode)
-    {      
+    {
         string[] indexStr = OID.Split('.');
         foreach (string index in indexStr)
         {
             bool searched = false;
             foreach (LeafNode child in leafNode.Children)
             {
-                if (child.Index ==Int32.Parse(index))
+                if (child.Index == Int32.Parse(index))
                 {
                     searched = true;
                     leafNode = child;
@@ -35,7 +35,7 @@ public class LeafNode
         return leafNode;
 
     }
-    
+
     public LeafNode SearchNode(string name, LeafNode startLeaf)
     {
         if (startLeaf.Name == name)
@@ -70,16 +70,35 @@ public class LeafNode
         }
         //dataleaf is
         Console.ForegroundColor = TaskMethods.ReturnConsoleColor(master);
-        Console.WriteLine(" "+master.Index+ " " + master.Name);
+        Console.WriteLine(" " + master.Index + " " + master.Name);
         Console.ForegroundColor = ConsoleColor.White;
         level++;
         foreach (LeafNode child in master.Children)
         {
 
-                PrintTree(child, level);
+            PrintTree(child, level);
         }
         level--;
     }
-   
+    public List<LeafNode> ListOfSequences(LeafNode master)
+    {
+        List<LeafNode> list = new List<LeafNode>();
+        list = SearchSequence(master, list);
+        return list;
+    }
+    private List<LeafNode> SearchSequence(LeafNode master, List<LeafNode> leafNodes)
+    {
+        foreach (LeafNode child in master.Children)
+        {
+            if (child.LeafData != null)
+                if (child.LeafData.SequenceObjectType != null)
+                    if (child.LeafData.SequenceObjectType.IsSequenceOf)
+                        leafNodes.Add(child);
+
+            leafNodes = SearchSequence(child, leafNodes);
+        }
+        return leafNodes;
+    }
+
 
 }
