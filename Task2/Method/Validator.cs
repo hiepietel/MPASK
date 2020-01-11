@@ -10,7 +10,22 @@ namespace Task2.Method
 {
     public static class Validator
     {
-
+        //public static bool ValidateSequnece()
+        //{
+        //    bool isSeqCorrect = true;
+        //    foreach (var item in treeNode.LeafData.SequenceObjectType.ElementsOfSequnces)
+        //    {
+        //        if (item.Restrictions != null)
+        //        {
+        //            if (!Validator.Validate(item.Restrictions, item.Data, value))
+        //            {
+        //                ConsoleInfo.RestrictionsFailed(item.Restrictions, type, value, oid);
+        //                return false;
+        //            }
+        //        }
+        //    }
+        //    return true;
+        //}
         public static bool Validate(Restricion restricion, string type, string value)
         {
             DataType dataType = ConverterToEnum.ToSimpleDatatype(type);

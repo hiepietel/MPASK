@@ -20,7 +20,10 @@ namespace Task2
             //ber.Code("var127", "OBJECT_IDENTIFIER", "1.3.6.4.1");
             //ber.CodeViaOID("1.3.6.1.2.1.2.2.1", "123"); //ifEntry
             //ber.CodeViaOID("1.3.6.1.2.1.1.7", "140");
-            
+
+            ber.CodeViaOID("1.3.6.1.2.1.2.2.1","1,elo,3,4,5,nein,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,1.2.4.5.6.3");
+
+
             //code simple datatype
             ber.Code("var127", "INTEGER", "127");
             ber.Code("var128", "INTEGER", "128");

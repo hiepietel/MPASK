@@ -16,6 +16,7 @@ namespace Task2.Method
                 case "INTEGER":
                 case "Counter":
                 case "COUNTER":
+                case "TimeTicks":
                 case "Gauge":
                 case "GAUGE":
                     return DataType.INTEGER;

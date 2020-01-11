@@ -11,6 +11,7 @@ namespace Task2.Method
 {
     class BERCoder
     {
+        //TODO - need to add create schema for sequence
         Dictionary<string, SimpleData> SimpleDataTypes = new Dictionary<string, SimpleData>();
         List<ConstructedDataSchema> ConstructedDataSchemas = new List<ConstructedDataSchema>();
         LeafNode MasterNode;
@@ -21,8 +22,9 @@ namespace Task2.Method
             MibReader.Import();
             ImportDataType(MibReader.dataTypes);
             MasterNode = MibReader.leafs;
+            CreateSchemaTree(MibReader.leafs.ListOfSequences(MasterNode));
         }
-        public void ImportDataType(List<Task1.Model.DataType> datatypes)
+        private void ImportDataType(List<Task1.Model.DataType> datatypes)
         {
             foreach (var item in datatypes)
             {
@@ -35,6 +37,21 @@ namespace Task2.Method
             }
             
         }
+        private void CreateSchemaTree(List<LeafNode> listOfSequences)
+        {
+            foreach (var seq in listOfSequences)
+            {
+                //ConstructedDataSchema constructedDataSchema = new ConstructedDataSchema();
+                //constructedDataSchema.Name = seq.Name;
+                string strOfDatas = "";
+                foreach ( var data in seq.LeafData.SequenceObjectType.ElementsOfSequnces)
+                {
+                    strOfDatas += data.Name + ":" + data.Data + ",";
+                }
+                strOfDatas =  strOfDatas.Remove(strOfDatas.LastIndexOf(','));
+                CreateSchema(seq.Name, "SEQUENCE", strOfDatas);
+            }
+        }
         public void CodeViaOID(string oid, string value)
         {
             //sysDescr22
@@ -44,31 +61,52 @@ namespace Task2.Method
             if (isDataType)
             {
                 type = treeNode.LeafData.ClassicDataType.ToString();
+                var restricion = treeNode.LeafData.DTRestricion;
+                if (restricion != null)
+                {
+                    if (Validator.Validate(restricion, type, value))
+                    {
+                        Code(oid, type, value);
+                    }
+                    else
+                    {
+                        ConsoleInfo.RestrictionsFailed(restricion, type, value, oid);
+                    }
+                }
+                else
+                {
+                    Code(oid, type, value);
+                }
             }
             else 
             {
                 type = treeNode.LeafData.SequenceObjectType.Name;
-
+                bool isSeqCorrect = true;
+                string[] values = value.Split(',');
+                int itemIterator = 0;
+                foreach (var item in treeNode.LeafData.SequenceObjectType.ElementsOfSequnces)
+                {
+                    if (item.Restrictions != null && isSeqCorrect)
+                    {
+                        if (Validator.Validate(item.Restrictions, item.Data, values[itemIterator]))
+                        {
+                            ConsoleInfo.RestrictionsFailed(item.Restrictions, item.Data, values[itemIterator], oid);
+                            isSeqCorrect = false;
+                            break;
+                        }
+                        else
+                        {
+                            itemIterator++;
+                        }
+                    }
+                }
+                if (isSeqCorrect)
+                    Code(oid, type, value);
             }
             
             //string originalType = treeNode.LeafData.
             //validate
-            var restricion = treeNode.LeafData.DTRestricion;
-            if(restricion != null)
-            {
-                if(Validator.Validate(restricion, type, value))
-                {
-                    Code(oid, type, value);
-                }
-                else
-                {
-                    ConsoleInfo.RestrictionsFailed(restricion, type, value, oid);
-                }
-            }
-            else
-            {
-                Code(oid, type, value);
-            }
+           
             
         }
         public void Code(string name, string type, string value = "", string visibility = "", string tagged = "")
@@ -76,11 +114,10 @@ namespace Task2.Method
             Tag tag = Coder.CodeTag(type, visibility, tagged);
             if (name.IsOID())
             {
-
             }
             if(tag.TagNumber == (int)DataType.UNKNOWN)
             {
-                ConstructedDataSchema schema = ConstructedDataSchemas.Find(x => x.Name == type);
+                ConstructedDataSchema schema = ConstructedDataSchemas.Find(x => x.Name.ToLower() == type.ToLower());
                 
                 tag = Coder.CodeTag(schema.DataType);
             }            
@@ -104,7 +141,7 @@ namespace Task2.Method
             }
             else if (tag.TPC == TagPC.Constructed)
             {
-                ConstructedDataSchema schema = ConstructedDataSchemas.Find(x => x.Name == type);
+                ConstructedDataSchema schema = ConstructedDataSchemas.Find(x => x.Name.ToLower() == type.ToLower());
                 List<string> list = value.Split(',').ToList<string>();
 
                 ConstructedData constructedData = Coder.CodeConstructedData(schema, list);

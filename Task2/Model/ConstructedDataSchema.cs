@@ -11,6 +11,7 @@ namespace Task2.Model
     {
         public string Name { get; set; }
         public string DataType { get; set; }
+        public string OID { get; set; }
         public Dictionary<string, string> Objects { get; set; }
 
     }
