@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,8 +17,8 @@ namespace Task1.Model
 
     public class ElementOfSequnce
     {
-        public string name { get; set; }
-        public DataType Data { get; set; }
-        public string Restrictions { get; set; }
+        public string Name { get; set; }
+        public string Data { get; set; }
+        public Restricion? Restrictions { get; set; }
     }
 }

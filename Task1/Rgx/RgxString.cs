@@ -20,6 +20,9 @@ namespace Task1.Rgx
         public static string ImportSortedRGX { get { return @"(?<datas>[A-z-,\s]*) FROM (?<from>[0-9A-z-]*)"; } }
         //(?<sequnce>[a-zA-z]*)\W::=\s*SEQUENCE\W{\s*(?<main>[a-zA-Z,.\w\s()]*)\s*}
         public static string ImportSEQUENCE { get { return @"(?<sequnce>[a-zA-z]*)\W::=\s*SEQUENCE\W{\s*(?<main>[a-zA-Z,.\w\s()]*)\s*}"; } }
+        public static string ImportSEQUENCEelements { get { return @"(?<name>[0-9A-z]*)\s*(?<datatype>[A-z ]*)(\s*\}|,|\s(?<res>\([0-9]*\.\.[0-9]*\)))"; } }
+        //public static string ImportSEQUENCEelements { get { return @"(?<name>[0-9A-z]*)\s*(?<datatype>[A-z ]*)(\s*\}|,|\s\((?<min>[0-9]*)\.\.(?<max>[0-9]*)\))"; } }
+        //public static string ImportSEQUENCEelements { get { return @"\s*(?<name>[0-9A-z]*)\s*(?<datatype>[0-9A-z (.)]*)(|,)"; } }
         public static string ImportRestricion { get { return @"(?:|[A-Z]*\()(?<min>[0-9]*)\.\.(?<max>[0-9]*)(?:|\))"; } }
         public static string ImportEnum { get { return @"(?<name>[0-9A-z\-]*)\((?<index>[0-9]*)\)"; } }
 
