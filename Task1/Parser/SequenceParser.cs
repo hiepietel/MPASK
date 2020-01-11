@@ -15,7 +15,7 @@ namespace Task1.Parser
         public static List<ElementOfSequnce> ReturnElementsOfSequnece(string data)
         {
             data = data.Remove(0, data.IndexOf('{')+1);
-            data = data.Remove(data.IndexOf('}'));
+            //data = data.Remove(data.IndexOf('}'));
             List<ElementOfSequnce> elementOfSequnces = new List<ElementOfSequnce>();
             MatchCollection matchCollection = TaskMethods.CollectionRegex(data, RgxString.ImportSEQUENCEelements, false);
             foreach (Match item in matchCollection)
@@ -29,6 +29,7 @@ namespace Task1.Parser
                 };
                 if(elementOfSequnce.Name != "" || elementOfSequnce.Data !="")
                     elementOfSequnces.Add(elementOfSequnce);
+                //Console.WriteLine(elementOfSequnce.Name + "||" + elementOfSequnce.Data);
             }
             return elementOfSequnces;
         }

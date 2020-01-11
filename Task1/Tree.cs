@@ -59,7 +59,6 @@ public class LeafNode
             }
 
         }
-
         return null;
     }
     public void PrintTree(LeafNode master, int level = 0)
@@ -92,7 +91,7 @@ public class LeafNode
         {
             if (child.LeafData != null)
                 if (child.LeafData.SequenceObjectType != null)
-                    if (child.LeafData.SequenceObjectType.IsSequenceOf)
+                    if (!child.LeafData.SequenceObjectType.IsSequenceOf)
                         leafNodes.Add(child);
 
             leafNodes = SearchSequence(child, leafNodes);
