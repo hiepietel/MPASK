@@ -72,21 +72,62 @@ namespace Task3
     }
     public class SimpleNetworkProtocol
     {
-        public string Version;
-        public string Community;
-        public int RequestId { get; set; }
-        public int ErrorStatus { get; set; }
-        public int ErrorIndex { get; set; }
+        public string Version { get; set; }
+        public string Community { get; set; }
+        public string RequestId { get; set; }
+        public string ErrorStatus { get; set; }
+        public string ErrorIndex { get; set; }
         public string VariableBindings { get; set; }
         public Dictionary<string, string> Data;
     }
     public static class Decoder
     {
-        public static SimpleNetworkProtocol CreateSimpleNetwork()
+        public static SimpleNetworkProtocol CreateSimpleNetworkProtocol(string code)
         {
-            SimpleNetworkProtocol simpleNetworkProtocol = new SimpleNetworkProtocol();
+            int startSNP = 32;
+            string[] datas = code.Split(' ');
+
+            string version = datas[startSNP + 4];
+            string community = "";
+            string requestId = "";
+            for (int i = startSNP+ 7; i < startSNP + 7+ 6 ; i++)
+            {
+                community += datas[i];
+            }
+            for (int i = 54; i < 58; i++)
+            {
+                requestId += datas[i];
+            }
+            string errorStatus = datas[56];
+            string errorIndex = datas[59];
+            //VariableBindings
+            string variableBindings = "";
+            bool endOfCode = true;
+            int startIndex = 46;
+            while (endOfCode)
+            {
+                try
+                {
+                    variableBindings += datas[startIndex];
+                    startIndex++;
+                }
+                catch(Exception ex)
+                {
+                    endOfCode = false;
+                }
+            }
+            SimpleNetworkProtocol simpleNetworkProtocol = new SimpleNetworkProtocol()
+            {
+                Community = community,
+                RequestId = requestId,
+                ErrorIndex = errorIndex,
+                ErrorStatus = errorStatus,
+                VariableBindings = variableBindings
+            };
             return simpleNetworkProtocol;
-        } 
+
+
+        }
         public static FrameReader CreateFrameReader(string code)
         {
             string loopback = "";
@@ -114,7 +155,9 @@ namespace Task3
                 InternetProtocol = internetprotocol,
                 UserDiagramProtocol = userdiagramprotocol
             };
+            frameReader.SNProtocol = CreateNetworkProtocol(code);
             return frameReader;
+
         }
     }
     class Program
