@@ -10,11 +10,39 @@ namespace Task3.Method
     public static class Decoder
     {
         //TODO CreateVariableBindings
-       
-        public static SimpleNetworkProtocol CreateSimpleNetworkProtocol(string code)
+        public static void CreateVariableBindings(string[] datas )
         {
+            //0-1 pierwsze pominac
+            //2 - tag OID
+            //3 - (x) length OIDa
+            //4-x OID
+            // tag zapisanej wartosci
+            // length zapisanej wielkoscie
+            //zapisana wartosc
+            string tagOID = datas[2];
+            string lengthOID = datas[3];
+            int lengthCountOID = int.Parse(lengthOID, System.Globalization.NumberStyles.HexNumber);
+            int startOID = 4;
+            string OIDhex = "";
+            for (int i = startOID; i < startOID+lengthCountOID; i++)
+            {
+                OIDhex += datas[i];
+            }
+            int startData = startOID + lengthCountOID;
+            string tagDATA = datas[startData];
+            string lengthDATA = datas[startData + 1];
+            int lengthCountDATA = int.Parse(lengthDATA, System.Globalization.NumberStyles.HexNumber);
+            string OIDdata = "";
+            for (int i = startData + 2; i < startData + 2 + lengthCountDATA; i++)
+            {
+                OIDdata += datas[i];
+            }
+        }
+
+        public static SimpleNetworkProtocol CreateSimpleNetworkProtocol(string[] datas)
+        {
+
             int startSNP = 32;
-            string[] datas = code.Split(' ');
 
             string version = datas[startSNP + 4];
             string community = "";
@@ -33,11 +61,12 @@ namespace Task3.Method
             string variableBindings = "";
             bool endOfCode = true;
             int startIndex = 59;
+            
             while (endOfCode)
             {
                 try
                 {
-                    variableBindings += datas[startIndex];
+                    variableBindings += datas[startIndex] +" ";
                     startIndex++;
                 }
                 catch (Exception ex)
@@ -45,6 +74,9 @@ namespace Task3.Method
                     endOfCode = false;
                 }
             }
+            variableBindings = variableBindings.TrimEnd();
+            string[] variableBindingsDatas = variableBindings.Split(' ');
+            CreateVariableBindings(variableBindings.Split(' '));
             SimpleNetworkProtocol simpleNetworkProtocol = new SimpleNetworkProtocol()
             {
                 Version =version,
@@ -58,12 +90,11 @@ namespace Task3.Method
 
 
         }
-        public static FrameReader CreateFrameReader(string code)
+        public static FrameReader CreateFrameReader(string[] datas)
         {
             string loopback = "";
             string internetprotocol = "";
             string userdiagramprotocol = "";
-            string[] datas = code.Split(' ');
 
             for (int i = 0; i < 4; i++)
             {
@@ -85,14 +116,26 @@ namespace Task3.Method
                 InternetProtocol = internetprotocol,
                 UserDiagramProtocol = userdiagramprotocol
             };
-            frameReader.SNProtocol = CreateSimpleNetworkProtocol(code);
+            frameReader.SNProtocol = CreateSimpleNetworkProtocol(datas);
             return frameReader;
 
         }
-        //TODO  Validate Input 
-        public static bool ValidateInput(string code)
+        public static void Decode(string code)
         {
+            string[] datas = code.Split(' ');
+            if (ValidateInput(datas))
+            {
+                FrameReader frameReader=  CreateFrameReader(datas);
+            }
 
+        }
+        public static bool ValidateInput(string[] datas)
+        {
+            
+            foreach(string data in datas)
+            {
+                if (data.Length != 2) return false;
+            }
             return true;
         }
     }

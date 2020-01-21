@@ -69,7 +69,7 @@ namespace Task3
     {
         static void Main(string[] args)
         {
-            FrameReader frameReader = Decoder.CreateFrameReader(TestFrames.Frame_timeticks);
+            Decoder.Decode(TestFrames.Frame_timeticks);
             Console.ReadKey();
         }
     }
