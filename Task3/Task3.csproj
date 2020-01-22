@@ -46,6 +46,7 @@
     <Compile Include="Enums\DataType.cs" />
     <Compile Include="Method\ConsoleInfo.cs" />
     <Compile Include="Method\ConverterToEnum.cs" />
+    <Compile Include="Method\ConverterToOID.cs" />
     <Compile Include="Method\Decoder.cs" />
     <Compile Include="Model\FrameReader.cs" />
     <Compile Include="Model\SimpleNetworkProtocol.cs" />
