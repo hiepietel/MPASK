@@ -10,7 +10,7 @@ namespace Task3.Method
     public static class Decoder
     {
         //TODO CreateVariableBindings
-        public static void CreateVariableBindings(string[] datas )
+        public static VariableBinding CreateVariableBindings(string[] datas )
         {
             //0-1 pierwsze pominac
             //2 - tag OID
@@ -37,6 +37,16 @@ namespace Task3.Method
             {
                 OIDdata += datas[i];
             }
+            VariableBinding variableBinding = new VariableBinding()
+            {
+                TagOID = tagOID,
+                LengthOID = lengthOID,
+                OID = OIDhex,
+                TagData = tagDATA,
+                LengthData = lengthDATA,
+                Data = OIDdata
+            };
+            return variableBinding;
         }
 
         public static SimpleNetworkProtocol CreateSimpleNetworkProtocol(string[] datas)
@@ -76,15 +86,16 @@ namespace Task3.Method
             }
             variableBindings = variableBindings.TrimEnd();
             string[] variableBindingsDatas = variableBindings.Split(' ');
-            CreateVariableBindings(variableBindings.Split(' '));
+            VariableBinding variableBinding = CreateVariableBindings(variableBindings.Split(' '));
             SimpleNetworkProtocol simpleNetworkProtocol = new SimpleNetworkProtocol()
             {
-                Version =version,
+                Version = version,
                 Community = community,
                 RequestId = requestId,
                 ErrorIndex = errorIndex,
                 ErrorStatus = errorStatus,
-                VariableBindings = variableBindings
+                VariableBindings = variableBinding
+
             };
             return simpleNetworkProtocol;
 
@@ -126,6 +137,7 @@ namespace Task3.Method
             if (ValidateInput(datas))
             {
                 FrameReader frameReader=  CreateFrameReader(datas);
+                ConsoleInfo.DecodedFrame(frameReader);
             }
 
         }

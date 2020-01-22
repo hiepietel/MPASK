@@ -13,7 +13,7 @@ namespace Task3.Model
         public string RequestId { get; set; }
         public string ErrorStatus { get; set; }
         public string ErrorIndex { get; set; }
-        public string VariableBindings { get; set; }
+        public VariableBinding VariableBindings { get; set; }
         public Dictionary<string, string> Data;
     }
 }

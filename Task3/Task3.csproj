@@ -47,6 +47,7 @@
     <Compile Include="Method\Decoder.cs" />
     <Compile Include="Model\FrameReader.cs" />
     <Compile Include="Model\SimpleNetworkProtocol.cs" />
+    <Compile Include="Model\VariableBinding.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
