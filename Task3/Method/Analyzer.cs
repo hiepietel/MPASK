@@ -37,7 +37,9 @@ namespace Task3.Method
             int intData = (int)datatype;
             switch (intData)
             {
+                //TODO octet_string
                 case (int)DataType.Timeticks:
+                case (int)DataType.INTEGER:
                     int num = int.Parse(hex, System.Globalization.NumberStyles.HexNumber);
                     return num.ToString();
                 default:

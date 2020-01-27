@@ -69,7 +69,13 @@ namespace Task3
     {
         static void Main(string[] args)
         {
-           FrameReader frameReader =  Decoder.Decode(TestFrames.Frame_timeticks);
+            FrameReader frameReader = Decoder.Decode(TestFrames.Frame_hiepietel);
+            Analyzer.AnalyzeVariableBindings(frameReader.SNProtocol.VariableBindings);
+            
+            frameReader = Decoder.Decode(TestFrames.Frame);
+            Analyzer.AnalyzeVariableBindings(frameReader.SNProtocol.VariableBindings);
+
+            frameReader =  Decoder.Decode(TestFrames.Frame_timeticks);
             Analyzer.AnalyzeVariableBindings(frameReader.SNProtocol.VariableBindings);
             Console.ReadKey();
         }
