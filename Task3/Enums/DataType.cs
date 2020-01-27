@@ -14,7 +14,7 @@ namespace Task3.Enums
         BIT_STRING = 3,
         OCTET_STRING = 4,
         NULL = 5,
-        DISPLAY_STRING,
+        DISPLAY_STRING=999,
         OBJECT_IDENTIFIER = 6,
         ObjectDescriptor = 7,
         EXTERNAL = 8,

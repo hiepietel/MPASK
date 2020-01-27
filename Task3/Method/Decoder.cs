@@ -131,14 +131,16 @@ namespace Task3.Method
             return frameReader;
 
         }
-        public static void Decode(string code)
+        public static FrameReader Decode(string code)
         {
             string[] datas = code.Split(' ');
             if (ValidateInput(datas))
             {
                 FrameReader frameReader=  CreateFrameReader(datas);
                 ConsoleInfo.DecodedFrame(frameReader);
+                return frameReader;
             }
+            return null;
 
         }
         public static bool ValidateInput(string[] datas)
