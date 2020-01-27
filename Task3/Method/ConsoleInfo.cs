@@ -33,6 +33,28 @@ namespace Task3.Method
             }
             
         }
+        public static void Dots(int howMany = 100)
+        {
+            Console.WriteLine("");
+            Random rnd = new Random();
+            for (int i = 0; i < howMany; i++)
+            {
+                Console.ForegroundColor = (ConsoleColor)rnd.Next(2, 14);
+                Console.Write("*");
+            }
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("");
+        }
+        public static void AnalyzedVariableBindings(AnalyzedVB analyzedVB)
+        {
+            Console.WriteLine("Analyzed:");
+            ColorWriteline("Tag", analyzedVB.TagOID.ToString(), ConsoleColor.DarkMagenta, false, space: 6);
+            ColorWriteline("Length", analyzedVB.LengthOID.ToString(), ConsoleColor.DarkMagenta, false);
+            ColorWriteline("OID", analyzedVB.OID, ConsoleColor.DarkMagenta);
+            ColorWriteline("Tag", analyzedVB.TagData.ToString(), ConsoleColor.DarkMagenta, false, space: 6);
+            ColorWriteline("Length", analyzedVB.LengthData.ToString(), ConsoleColor.DarkMagenta, false);
+            ColorWriteline("Data", analyzedVB.Data, ConsoleColor.DarkMagenta);
+        }
         public static void InproperDataToDecode()
         {
             Console.WriteLine("CANNOT DECODE");

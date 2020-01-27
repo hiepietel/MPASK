@@ -14,22 +14,36 @@ namespace Task3.Method
         {
             DataType dataTypeTag = ConverterToEnum.ToSimpleDatatype(variableBindings.TagData);
             int dataLength = ToLength(variableBindings.LengthData);
-
+            string data = AnalyzeData(dataTypeTag, variableBindings.Data);
 
             DataType dataTypeOID = ConverterToEnum.ToSimpleDatatype(variableBindings.TagOID);
             int dataOID = ToLength(variableBindings.LengthOID);
             string oid = ConverterToOID.ToOID(variableBindings.OID);
+            
             AnalyzedVB analyzedVB = new AnalyzedVB()
             {
                 TagData = dataTypeTag,
                 LengthData = dataLength,
-                Data = "",
+                Data = data,
                 TagOID = dataTypeOID,
-                LengthOID = dataLength,
+                LengthOID = dataOID,
                 OID = oid
             };
+            ConsoleInfo.AnalyzedVariableBindings(analyzedVB);
+            ConsoleInfo.Dots();    
 
-
+        }
+        public static string AnalyzeData(DataType datatype, string hex) {
+            int intData = (int)datatype;
+            switch (intData)
+            {
+                case (int)DataType.Timeticks:
+                    int num = int.Parse(hex, System.Globalization.NumberStyles.HexNumber);
+                    return num.ToString();
+                default:
+                    return "";
+            }
+            return "";
         }
         public static int ToLength(string hex)
         {
