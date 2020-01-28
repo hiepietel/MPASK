@@ -37,13 +37,20 @@ namespace Task3.Method
             int intData = (int)datatype;
             switch (intData)
             {
-                //TODO octet_string
                 case (int)DataType.Timeticks:
                 case (int)DataType.INTEGER:
                     int num = int.Parse(hex, System.Globalization.NumberStyles.HexNumber);
                     return num.ToString();
                 default:
                     return "";
+                case (int)DataType.OCTET_STRING:
+                    byte[] raw = new byte[hex.Length / 2];
+                    string temp = "";
+                    for (int i = 0; i < raw.Length; i++)
+                    {
+                        raw[i] = Convert.ToByte(hex.Substring(i * 2, 2), 16);
+                    }
+                    return Encoding.ASCII.GetString(raw);
             }
             return "";
         }
